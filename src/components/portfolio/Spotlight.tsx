@@ -8,7 +8,7 @@ export function Spotlight() {
     const onMove = (e: MouseEvent) => {
       el.style.left = e.clientX + "px";
       el.style.top = e.clientY + "px";
-      el.style.opacity = "1";
+      el.style.opacity = "0.7"; // Softer glow
     };
     const onLeave = () => {
       el.style.opacity = "0";

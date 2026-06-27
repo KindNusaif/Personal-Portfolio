@@ -20,9 +20,9 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
         scrolled
-          ? "bg-background/70 backdrop-blur-xl border-b border-border"
+          ? "bg-background/80 backdrop-blur-2xl border-b border-border/40 shadow-sm shadow-black/5"
           : "bg-transparent"
       }`}
     >

@@ -6,8 +6,8 @@ import {
   Rocket,
   FileText,
   MessageCircle,
-  Github,
-  Linkedin,
+  GitBranch,
+  ExternalLink,
   Mail,
   Cpu,
   Gamepad2,
@@ -80,8 +80,8 @@ function TypingLine({ text }: { text: string }) {
 /* -------------------- HERO -------------------- */
 export function HeroSection() {
   return (
-    <section id="top" className="relative isolate overflow-hidden pt-32 pb-24 aurora-bg">
-      <div className="absolute inset-0 grid-bg opacity-60" />
+    <section id="top" className="relative isolate overflow-hidden pt-32 pb-24 aurora-bg noise-bg">
+      <div className="absolute inset-0 grid-bg opacity-50" />
       <div className="absolute inset-0">
         <Particles />
       </div>
@@ -161,9 +161,9 @@ function CurrentlyBuilding() {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6 }}
-      className="mt-20 rounded-2xl border border-border bg-card/60 p-6 backdrop-blur-xl md:p-8"
+      className="mt-20 rounded-2xl border border-border/50 bg-card/60 p-6 backdrop-blur-2xl md:p-8 shadow-2xl shadow-black/20 ring-1 ring-white/5 transition-all hover:bg-card/80 hover:shadow-primary/10"
     >
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">
@@ -251,11 +251,11 @@ export function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
-            className="group relative overflow-hidden rounded-2xl border border-border bg-card/60 p-8 backdrop-blur-xl transition hover:border-primary/50"
+            className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/60 p-8 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:bg-card/80 hover:shadow-2xl hover:shadow-primary/10"
           >
-            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl transition group-hover:bg-primary/20" />
+            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl transition-all duration-500 group-hover:bg-primary/30 group-hover:scale-150" />
             <div className="text-5xl font-semibold tracking-tight">
-              <span className="bg-gradient-to-br from-foreground to-foreground/40 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-br from-foreground via-foreground/90 to-foreground/40 bg-clip-text text-transparent">
                 {s.n}
               </span>
             </div>
@@ -293,7 +293,7 @@ export function WorkSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="group relative overflow-hidden rounded-3xl border border-border bg-card/70 backdrop-blur-xl"
+        className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/70 backdrop-blur-2xl shadow-xl transition-all hover:border-primary/30 hover:shadow-primary/5"
       >
         <div className="grid md:grid-cols-2">
           <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
@@ -335,7 +335,7 @@ export function WorkSection() {
                 Live Demo <ArrowUpRight className="h-4 w-4" />
               </a>
               <a className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-2 text-sm transition hover:border-foreground" href="#">
-                <Github className="h-4 w-4" /> GitHub
+                <GitBranch className="h-4 w-4" /> GitHub
               </a>
               <a className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-2 text-sm transition hover:border-accent" href="#">
                 Case Study
@@ -357,7 +357,7 @@ export function WorkSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="group relative flex flex-col rounded-2xl border border-border bg-card/60 p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:border-primary/60 hover:bg-card"
+              className="group relative flex flex-col rounded-2xl border border-border/50 bg-card/60 p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:bg-card/90 hover:shadow-xl hover:shadow-primary/5"
             >
               <div className="mb-5 flex items-center justify-between">
                 <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/15 text-primary">
@@ -408,7 +408,7 @@ export function ToolboxSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.06 }}
-            className="rounded-2xl border border-border bg-card/60 p-6 backdrop-blur-xl"
+            className="group rounded-2xl border border-border/50 bg-card/60 p-6 backdrop-blur-xl transition-all hover:bg-card/80 hover:border-primary/30"
           >
             <div className="flex items-center justify-between">
               <h4 className="text-lg font-semibold">{g.group}</h4>
@@ -504,9 +504,9 @@ export function CertificatesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="group rounded-2xl border border-border bg-card/60 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-primary/60"
+            className="group rounded-2xl border border-border/50 bg-card/60 p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
           >
-            <div className="aspect-[4/3] rounded-lg border border-border bg-gradient-to-br from-primary/20 via-secondary to-accent/15" />
+            <div className="aspect-[4/3] rounded-lg border border-border/50 bg-gradient-to-br from-primary/10 via-secondary to-accent/10 transition-colors group-hover:from-primary/20" />
             <div className="mt-4 text-sm font-semibold">{c.title}</div>
             <div className="mt-1 flex items-center justify-between font-mono text-xs text-muted-foreground">
               <span>{c.issuer}</span>
@@ -535,7 +535,7 @@ export function BlogSection() {
         eyebrow="06 / Field Notes"
         title="Things I wrote down so I wouldn't forget."
       />
-      <ul className="divide-y divide-border rounded-2xl border border-border bg-card/40 backdrop-blur-xl">
+      <ul className="divide-y divide-border/50 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl shadow-lg">
         {POSTS.map((p, i) => (
           <motion.li
             key={p.title}
@@ -567,8 +567,8 @@ export function BlogSection() {
 export function ContactSection() {
   const links = [
     { icon: Mail, label: "hello@nusaif.dev", href: "mailto:hello@nusaif.dev" },
-    { icon: Linkedin, label: "linkedin.com/in/ahamednusaif", href: "#" },
-    { icon: Github, label: "github.com/ahamednusaif", href: "#" },
+    { icon: ExternalLink, label: "linkedin.com/in/ahamednusaif", href: "#" },
+    { icon: GitBranch, label: "github.com/ahamednusaif", href: "#" },
     { icon: FileText, label: "Download Resume", href: "#" },
   ];
   return (
@@ -586,7 +586,7 @@ export function ContactSection() {
               <a
                 key={l.label}
                 href={l.href}
-                className="group flex items-center justify-between rounded-2xl border border-border bg-card/60 px-6 py-5 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-primary/60"
+                className="group flex items-center justify-between rounded-2xl border border-border/50 bg-card/60 px-6 py-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:bg-card/90 hover:shadow-lg hover:shadow-primary/5"
               >
                 <div className="flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/15 text-primary">
