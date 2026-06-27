@@ -100,21 +100,19 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.7 }}
-          className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.02] tracking-tight"
+          className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-balance max-w-5xl"
         >
           Hi, I'm <span className="text-primary">Ahamed Nusaif</span>.
-          <br />
-          <span className="text-muted-foreground">I build products that inspire action,</span>
-          <br />
-          <span className="text-muted-foreground">empower communities, and create </span>
-          <span className="italic text-accent">lasting impact.</span>
+          <span className="text-muted-foreground block mt-2 md:mt-4">
+            I build products that inspire action, empower communities, and create <span className="italic text-accent">lasting impact.</span>
+          </span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-8 max-w-2xl font-mono text-sm text-muted-foreground"
+          className="mt-8 max-w-2xl font-mono text-base sm:text-lg text-muted-foreground leading-relaxed"
         >
           An ambitious builder from <span className="text-foreground">Sri Lanka</span>, creating technology that empowers people and shapes the future.
         </motion.p>
