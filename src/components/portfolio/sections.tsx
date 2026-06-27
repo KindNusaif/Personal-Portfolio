@@ -565,7 +565,7 @@ export function ContactSection() {
   const links = [
     { icon: Mail, label: "ahamednusaifofficial@gmail.com", href: "mailto:ahamednusaifofficial@gmail.com" },
     { icon: ExternalLink, label: "www.linkedin.com/in/ahamed-nusaif", href: "https://www.linkedin.com/in/ahamed-nusaif" },
-    { icon: GitBranch, label: "github.com/ahamednusaif", href: "https://github.com/ahamednusaif" },
+    { icon: GitBranch, label: "github.com/KindNusaif", href: "https://github.com/KindNusaif" },
     { icon: FileText, label: "Download Resume", href: "#" },
   ];
   return (
