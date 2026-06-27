@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "#building", label: "Currently Building" },
-  { href: "#journey", label: "My Journey" },
-  { href: "#built", label: "Things I've Built" },
-  { href: "#toolbox", label: "My Toolbox" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "#journey", label: "Origin" },
+  { href: "#built", label: "Work" },
+  { href: "#toolbox", label: "Stack" },
+  { href: "#experience", label: "Path" },
 ];
 
 export function SiteHeader() {
@@ -51,7 +49,7 @@ export function SiteHeader() {
           className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-1.5 text-xs font-mono text-foreground transition hover:border-primary hover:bg-primary/10"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-accent blink" />
-          Available
+          Say hi
         </a>
       </div>
     </header>
