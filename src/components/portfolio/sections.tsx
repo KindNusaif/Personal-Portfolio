@@ -116,8 +116,7 @@ export function HeroSection() {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="mt-8 max-w-2xl font-mono text-sm text-muted-foreground"
         >
-          Software Engineering Student · Frontend Developer · Builder of{" "}
-          <span className="text-foreground">ForFuture</span> · Robotics Enthusiast
+          An ambitious builder from <span className="text-foreground">Sri Lanka</span>, creating technology that empowers people and shapes the future.
         </motion.p>
 
         <motion.div
