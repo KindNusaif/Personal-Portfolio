@@ -104,10 +104,10 @@ export function HeroSection() {
         >
           Hi, I'm <span className="text-primary">Ahamed Nusaif</span>.
           <br />
-          <span className="text-muted-foreground">I build software that empowers</span>
+          <span className="text-muted-foreground">I build products that inspire action,</span>
           <br />
-          <span className="text-muted-foreground">people and solves </span>
-          <span className="italic text-accent">real-world problems.</span>
+          <span className="text-muted-foreground">empower communities, and create </span>
+          <span className="italic text-accent">lasting impact.</span>
         </motion.h1>
 
         <motion.p
