@@ -563,9 +563,9 @@ export function BlogSection() {
 /* -------------------- Contact -------------------- */
 export function ContactSection() {
   const links = [
-    { icon: Mail, label: "hello@nusaif.dev", href: "mailto:hello@nusaif.dev" },
-    { icon: ExternalLink, label: "linkedin.com/in/ahamednusaif", href: "#" },
-    { icon: GitBranch, label: "github.com/ahamednusaif", href: "#" },
+    { icon: Mail, label: "ahamednusaifofficial@gmail.com", href: "mailto:ahamednusaifofficial@gmail.com" },
+    { icon: ExternalLink, label: "www.linkedin.com/in/ahamed-nusaif", href: "https://www.linkedin.com/in/ahamed-nusaif" },
+    { icon: GitBranch, label: "github.com/ahamednusaif", href: "https://github.com/ahamednusaif" },
     { icon: FileText, label: "Download Resume", href: "#" },
   ];
   return (
