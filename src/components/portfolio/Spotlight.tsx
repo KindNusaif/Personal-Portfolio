@@ -1,24 +1,44 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function Spotlight() {
-  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+  
+  const mouseX = useMotionValue(-1000);
+  const mouseY = useMotionValue(-1000);
+
+  // Smooth out the mouse movement
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20, mass: 0.5 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20, mass: 0.5 });
+
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
     const onMove = (e: MouseEvent) => {
-      el.style.left = e.clientX + "px";
-      el.style.top = e.clientY + "px";
-      el.style.opacity = "0.7"; // Softer glow
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      if (!active) setActive(true);
     };
+    
     const onLeave = () => {
-      el.style.opacity = "0";
+      setActive(false);
     };
+
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseleave", onLeave);
+
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseleave", onLeave);
     };
-  }, []);
-  return <div ref={ref} className="spotlight hidden md:block" style={{ opacity: 0 }} />;
+  }, [mouseX, mouseY, active]);
+
+  return (
+    <motion.div
+      className="spotlight hidden md:block"
+      style={{
+        left: springX,
+        top: springY,
+        opacity: active ? 0.7 : 0,
+      }}
+    />
+  );
 }

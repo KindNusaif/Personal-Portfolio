@@ -4,11 +4,11 @@ import {
   HeroSection,
   AboutSection,
   WorkSection,
-  ExperienceSection,
+  PathSection,
   ContactSection,
   MarqueeStrip,
   ScrollProgress,
-  ToolboxSection,
+  StackSection,
   CertificatesSection,
   BlogSection,
 } from "@/components/portfolio/sections";
@@ -27,8 +27,8 @@ function Portfolio() {
         <MarqueeStrip />
         <AboutSection />
         <WorkSection />
-        <ToolboxSection />
-        <ExperienceSection />
+        <StackSection />
+        <PathSection />
         <CertificatesSection />
         <BlogSection />
         <ContactSection />
