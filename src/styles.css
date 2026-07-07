@@ -75,12 +75,12 @@
 :root {
   --radius: 0.75rem;
   /* Dark minimal — Linear/Vercel-grade */
-  --canvas: oklch(0.12 0.01 260);          /* Deeper black/blue vibe */
-  --surface: oklch(0.17 0.015 260);          /* rich card */
+  --canvas: oklch(0.13 0.01 260);          /* Deeper black/blue vibe */
+  --surface: oklch(0.18 0.015 260);          /* rich card */
   --ink: oklch(0.985 0 0);                   /* near-white text */
-  --brand: oklch(0.65 0.24 260);            /* Vibrant blue */
-  --spark: oklch(0.78 0.15 185);             /* Luminous teal */
-  --hairline: oklch(1 0 0 / 10%);
+  --brand: oklch(0.68 0.22 255);            /* Vibrant Vercel-esque blue */
+  --spark: oklch(0.82 0.14 185);             /* Luminous teal */
+  --hairline: oklch(1 0 0 / 12%);
   --background: var(--canvas);
   --foreground: var(--ink);
   --card: var(--surface);
@@ -89,10 +89,10 @@
   --popover-foreground: var(--ink);
   --primary: var(--brand);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.22 0.01 260);
+  --secondary: oklch(0.24 0.01 260);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.22 0.01 260);
-  --muted-foreground: oklch(0.65 0.02 260);
+  --muted: oklch(0.24 0.01 260);
+  --muted-foreground: oklch(0.70 0.02 260);
   --accent: var(--spark);
   --accent-foreground: oklch(0.12 0.01 260);
   --destructive: oklch(0.65 0.22 25);

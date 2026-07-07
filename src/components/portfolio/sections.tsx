@@ -99,12 +99,41 @@ export function HeroSection() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.7 }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1,
+                  delayChildren: 0.1,
+                },
+              },
+            }}
             className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-balance font-display"
           >
-            The Journey of <span className="text-primary">Nusaif</span>.
+            {["The", "Journey", "of"].map((word, i) => (
+              <motion.span
+                key={i}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+                }}
+                className="inline-block mr-3 sm:mr-4"
+              >
+                {word}
+              </motion.span>
+            ))}
+            <motion.span
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+              }}
+              className="inline-block text-primary"
+            >
+              Nusaif.
+            </motion.span>
           </motion.h1>
           
           <motion.div
