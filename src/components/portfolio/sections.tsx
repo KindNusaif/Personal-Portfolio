@@ -295,7 +295,50 @@ export function AboutSection() {
   );
 }
 
-/* -------------------- Featured + other projects -------------------- */
+/* -------------------- ForFuture Case Study -------------------- */
+export function CaseStudySection() {
+  return (
+    <section id="forfuture" className="mx-auto max-w-6xl px-5 py-28">
+      <SectionHeading
+        eyebrow="02 / Case Study"
+        title="Building ForFuture."
+      />
+      <motion.article
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/70 backdrop-blur-2xl shadow-xl"
+      >
+        <div className="p-8 md:p-10">
+          <p className="text-muted-foreground italic mb-6">
+            Awaiting real details from user for: The Problem, The Solution, The Challenge, and The Retrospective...
+          </p>
+          <dl className="grid gap-6 md:grid-cols-2">
+            <div>
+              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">The Problem</dt>
+              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">What I Built</dt>
+              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">Challenge & Decision</dt>
+              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">Retrospective (What I'd change next time)</dt>
+              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
+            </div>
+          </dl>
+        </div>
+      </motion.article>
+    </section>
+  );
+}
+
+/* -------------------- Other Projects -------------------- */
 const OTHER = [
   { title: "NusaifOS Portfolio", tech: ["React", "Vite", "Framer Motion"], desc: "This very website. Built with modern web standards, custom animations, and a focus on premium UI.", icon: Sparkles },
   { title: "MicroMaze Robot", tech: ["C++", "Arduino", "Sensors"], desc: "Maze-solving autonomous robot built for national level robotics competitions.", icon: Cpu },
@@ -307,77 +350,12 @@ const OTHER = [
 
 export function WorkSection() {
   return (
-    <section id="built" className="mx-auto max-w-6xl px-5 py-28">
+    <section id="projects" className="mx-auto max-w-6xl px-5 py-28">
       <SectionHeading
-        eyebrow="02 / Things I've Built"
-        title="A featured product, plus a workshop full of side quests."
+        eyebrow="03 / Other Projects"
+        title="A workshop full of side quests."
       />
 
-      {/* Featured */}
-      <motion.article
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/70 backdrop-blur-2xl shadow-xl transition-all hover:border-primary/30 hover:shadow-primary/5"
-      >
-        <div className="grid md:grid-cols-2">
-          <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
-            <div className="absolute inset-0 aurora-bg" />
-            <div className="absolute inset-0 grid-bg opacity-40" />
-            <div className="relative flex h-full items-center justify-center p-10">
-              <div className="text-center">
-                <div className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Featured</div>
-                <div className="mt-2 text-6xl font-semibold bg-gradient-to-br from-foreground to-foreground/40 bg-clip-text text-transparent">
-                  ForFuture
-                </div>
-                <div className="mt-2 font-mono text-xs text-muted-foreground">civic · youth · impact</div>
-              </div>
-            </div>
-          </div>
-          <div className="p-8 md:p-10">
-            <h3 className="text-3xl font-semibold tracking-tight">ForFuture</h3>
-            <p className="mt-3 text-muted-foreground">
-              A youth-powered platform that turns civic frustration into coordinated action —
-              campaigns, petitions, volunteer matching, and transparent progress tracking.
-            </p>
-            <dl className="mt-6 grid gap-4 sm:grid-cols-2 text-sm">
-              <div>
-                <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Problem</dt>
-                <dd className="mt-1 text-muted-foreground">Young people care, but lack a structured way to act together.</dd>
-              </div>
-              <div>
-                <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Solution</dt>
-                <dd className="mt-1 text-muted-foreground">A single hub to launch, join and measure local civic initiatives.</dd>
-              </div>
-              <div>
-                <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Impact</dt>
-                <dd className="mt-1 text-muted-foreground">Future goal: 1M+ young people connected.</dd>
-              </div>
-              <div>
-                <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Status</dt>
-                <dd className="mt-1 text-primary">Building.</dd>
-              </div>
-            </dl>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["React", "TypeScript", "Tailwind", "Node", "Firebase"].map((t) => (
-                <span key={t} className="chip">{t}</span>
-              ))}
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:brightness-110" href="#">
-                Live Demo <ArrowUpRight className="h-4 w-4" />
-              </a>
-              <a className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-2 text-sm transition hover:border-foreground" href="#">
-                <GitBranch className="h-4 w-4" /> GitHub
-              </a>
-              <a className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-2 text-sm transition hover:border-accent" href="#">
-                Case Study
-              </a>
-            </div>
-          </div>
-        </div>
-      </motion.article>
 
       {/* Other projects */}
       <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
