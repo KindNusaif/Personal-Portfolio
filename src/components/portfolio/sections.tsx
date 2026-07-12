@@ -324,106 +324,140 @@ export function AboutSection() {
   );
 }
 
-/* -------------------- ForFuture Case Study -------------------- */
-export function CaseStudySection() {
-  return (
-    <section id="forfuture" className="mx-auto max-w-6xl px-5 py-28">
-      <SectionHeading
-        eyebrow="02 / Case Study"
-        title="Building ForFuture."
-      />
-      <motion.article
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/70 backdrop-blur-2xl shadow-xl"
-      >
-        <div className="p-8 md:p-10">
-          <p className="text-muted-foreground italic mb-6">
-            Awaiting real details from user for: The Problem, The Solution, The Challenge, and The Retrospective...
-          </p>
-          <dl className="grid gap-6 md:grid-cols-2">
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">The Problem</dt>
-              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">What I Built</dt>
-              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">Challenge & Decision</dt>
-              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">Retrospective (What I'd change next time)</dt>
-              <dd className="text-sm text-muted-foreground">[Needs Content]</dd>
-            </div>
-          </dl>
-        </div>
-      </motion.article>
-    </section>
-  );
-}
-
-/* -------------------- Other Projects -------------------- */
-const OTHER = [
-  { title: "NusaifOS Portfolio", tech: ["React", "Vite", "Framer Motion"], desc: "This very website. Built with modern web standards, custom animations, and a focus on premium UI.", icon: Sparkles },
-  { title: "MicroMaze Robot", tech: ["C++", "Arduino", "Sensors"], desc: "Maze-solving autonomous robot built for national level robotics competitions.", icon: Cpu },
-  { title: "Civic Action Hub", tech: ["Node", "Firebase", "React"], desc: "A predecessor to ForFuture. Platform for tracking local community initiatives.", icon: Code2 },
-  { title: "Outbreak Dash", tech: ["Unity", "C#"], desc: "Top-down arcade survival game. Explored game loops, AI pathfinding and state machines.", icon: Gamepad2 },
-  { title: "Python Web Scrapers", tech: ["Python", "Selenium", "BS4"], desc: "A collection of automated scripts and data scrapers for academic research.", icon: Code2 },
-  { title: "Design System UI", tech: ["React", "TailwindCSS"], desc: "An open-source collection of animated UI components and micro-interactions.", icon: Sparkles },
-];
-
+/* -------------------- Projects (Work) -------------------- */
 export function WorkSection() {
+  const projects = [
+    {
+      title: "ForFuture",
+      desc: "An AI-powered civic engagement platform that empowers young people to create meaningful social impact through volunteering, campaigns, petitions, AI-assisted idea generation, and community collaboration. Built to solve real-world challenges by connecting youth with opportunities to make a difference.",
+      tech: ["React", "Vite", "Supabase", "Tailwind CSS", "AI"],
+      links: [
+        { label: "Live Demo", href: "#", primary: true },
+        { label: "GitHub", href: "#", primary: false },
+      ],
+    },
+    {
+      title: "NusaifOS Portfolio",
+      desc: "A premium personal developer portfolio built with modern web technologies, smooth animations, responsive design, and a clean user experience. It showcases my projects, technical skills, and passion for building high-quality digital products.",
+      tech: ["React", "Vite", "Framer Motion", "Tailwind CSS"],
+      links: [
+        { label: "Live Demo", href: "#", primary: true },
+        { label: "GitHub", href: "#", primary: false },
+      ],
+    },
+  ];
+
+  const buildingTags = [
+    "AI", "Full Stack", "React", "Next.js", "Node.js", "Python", "Cloud", "Innovation", "Open Source"
+  ];
+
   return (
-    <section id="projects" className="mx-auto max-w-6xl px-5 py-28">
+    <section id="projects" className="mx-auto max-w-6xl px-5 py-28 relative">
       <SectionHeading
-        eyebrow="03 / Other Projects"
-        title="A workshop full of side quests."
+        eyebrow="02 / Projects"
+        title="Featured Work."
       />
 
-
-      {/* Other projects */}
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {OTHER.map((p, i) => {
-          const Icon = p.icon;
-          return (
-            <motion.a
+      <div className="mt-12 flex flex-col gap-12">
+        {/* Project Cards - Grid */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {projects.map((p, i) => (
+            <motion.div
               key={p.title}
-              href="#"
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -5, rotateX: 2, rotateY: -2 }}
-              style={{ transformPerspective: 1000 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="group relative flex flex-col rounded-2xl border border-border/50 bg-card/60 p-6 backdrop-blur-xl transition-all duration-300 hover:border-primary/50 hover:bg-card/90 hover:shadow-xl hover:shadow-primary/5"
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 hover:bg-white/[0.04] hover:shadow-[0_0_40px_-10px_rgba(var(--color-primary),0.1)]"
             >
-              <div className="mb-5 flex items-center justify-between">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/15 text-primary">
-                  <Icon className="h-5 w-5" />
+              {/* Glowing Hover Effect */}
+              <div className="absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-3xl" style={{
+                background: `linear-gradient(135deg, transparent 40%, color-mix(in oklab, var(--primary) 20%, transparent), color-mix(in oklab, var(--spark) 20%, transparent))`
+              }} />
+
+              <div className="relative z-10">
+                <h3 className="text-2xl font-semibold tracking-tight text-foreground/90 group-hover:text-foreground transition-colors">{p.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground/90">{p.desc}</p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {p.tech.map((t) => (
+                    <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-mono text-muted-foreground transition-colors group-hover:border-primary/20 group-hover:text-foreground/80">
+                      {t}
+                    </span>
+                  ))}
                 </div>
-                <ArrowUpRight className="h-4 w-4 text-muted-foreground transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
               </div>
-              <h4 className="text-lg font-semibold">{p.title}</h4>
-              <p className="mt-1.5 text-sm text-muted-foreground">{p.desc}</p>
-              <div className="mt-5 flex flex-wrap gap-1.5">
-                {p.tech.map((t) => (
-                  <span key={t} className="rounded-md border border-border bg-secondary/40 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                    {t}
-                  </span>
+
+              <div className="relative z-10 mt-10 flex gap-4">
+                {p.links.map(link => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
+                      link.primary 
+                      ? "bg-foreground text-background hover:bg-foreground/90 hover:scale-105" 
+                      : "bg-white/5 border border-white/10 text-foreground/80 hover:bg-white/10 hover:border-white/20 hover:text-foreground"
+                    }`}
+                  >
+                    {link.label} {link.primary && <ArrowUpRight className="h-4 w-4" />}
+                  </a>
                 ))}
               </div>
-              <div className="mt-5 flex gap-3 text-xs text-muted-foreground">
-                <span className="link-underline">Demo</span>
-                <span className="link-underline">GitHub</span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Currently Building Card - Full Width */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="group relative overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent p-1 shadow-2xl transition-all duration-500 hover:border-white/10"
+        >
+          {/* Animated Gradient Background inside border */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-spark/10 to-primary/10 opacity-30 blur-2xl transition-opacity duration-500 group-hover:opacity-60" />
+          
+          <div className="relative h-full w-full rounded-[23px] bg-background/50 p-8 md:p-12 backdrop-blur-2xl">
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-10">
+              
+              <div className="flex-1 max-w-2xl">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                  </span>
+                  More exciting projects coming soon.
+                </div>
+                
+                <h3 className="text-3xl md:text-4xl font-semibold tracking-tight font-display mb-4">
+                  🚀 Building the Future
+                </h3>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  I'm an enthusiastic software developer, creative innovator, and problem solver who enjoys transforming ideas into impactful digital products. My focus is on Full-Stack Development, Artificial Intelligence, UI/UX, and scalable web applications. I continuously learn, experiment, and build solutions that solve real-world problems while exploring emerging technologies.
+                </p>
               </div>
-            </motion.a>
-          );
-        })}
+
+              <div className="flex-1 max-w-sm">
+                <div className="flex flex-wrap gap-2 md:justify-end">
+                  {buildingTags.map((tag, i) => (
+                    <motion.span
+                      key={tag}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 + (i * 0.05) }}
+                      className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-mono text-foreground/70 transition-colors hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
+                    >
+                      {tag}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

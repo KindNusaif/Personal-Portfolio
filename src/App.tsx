@@ -5,7 +5,6 @@ import {
   HeroSection,
   AboutSection,
   WorkSection,
-  CaseStudySection,
   PathSection,
   ContactSection,
   MarqueeStrip,
@@ -41,7 +40,6 @@ function Portfolio() {
         <HeroSection />
         <MarqueeStrip />
         <AboutSection />
-        <CaseStudySection />
         <WorkSection />
         <PathSection />
         <StackSection />
