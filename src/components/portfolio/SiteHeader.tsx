@@ -5,6 +5,7 @@ const NAV = [
   { href: "#built", label: "Work" },
   { href: "#toolbox", label: "Stack" },
   { href: "#experience", label: "Path" },
+  { href: "#learning-journey", label: "Learning" },
 ];
 
 export function SiteHeader() {

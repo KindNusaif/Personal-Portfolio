@@ -252,7 +252,7 @@ function CurrentlyBuilding() {
 }
 
 /* -------------------- helpers -------------------- */
-function SectionHeading({
+export function SectionHeading({
   eyebrow,
   title,
   subtitle,
@@ -563,52 +563,7 @@ export function PathSection() {
   );
 }
 
-/* -------------------- Certificates -------------------- */
-const CERTS = [
-  { title: "Advanced React Patterns", issuer: "Frontend Masters", date: "2025" },
-  { title: "Full-Stack Web Development", issuer: "freeCodeCamp", date: "2024" },
-  { title: "Machine Learning Specialization", issuer: "Coursera", date: "2025" },
-  { title: "Cloud Architecture Foundations", issuer: "AWS Training", date: "2026" },
-];
-export function CertificatesSection() {
-  return (
-    <section id="certificates" className="mx-auto max-w-6xl px-5 py-28">
-      <SectionHeading
-        eyebrow="05 / Certificates"
-        title="Receipts from the learning rabbit holes."
-      />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {CERTS.map((c, i) => (
-          <motion.a
-            key={c.title}
-            href="#"
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -5, scale: 1.02 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
-            className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/60 p-5 backdrop-blur-xl transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10"
-          >
-            {/* Hover Gradient Glow */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            
-            <div className="aspect-[4/3] rounded-lg border border-border/50 bg-gradient-to-br from-primary/10 via-secondary to-accent/10 transition-colors group-hover:from-primary/20 flex items-center justify-center overflow-hidden">
-              <div className="h-full w-full bg-grid-bg opacity-30" />
-            </div>
-            <div className="mt-4 text-sm font-semibold">{c.title}</div>
-            <div className="mt-1 flex items-center justify-between font-mono text-xs text-muted-foreground">
-              <span>{c.issuer}</span>
-              <span>{c.date}</span>
-            </div>
-            <div className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-accent opacity-80 transition-opacity group-hover:opacity-100">
-              Verify Credential <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </div>
-          </motion.a>
-        ))}
-      </div>
-    </section>
-  );
-}
+export { LearningJourney as CertificatesSection } from "./LearningJourney";
 
 /* -------------------- Blog -------------------- */
 const POSTS = [
