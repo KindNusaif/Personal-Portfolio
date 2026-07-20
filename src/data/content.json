@@ -1,0 +1,55 @@
+{
+  "about": {
+    "paragraphs": [
+      "Born in Puttalam.",
+      "Raised by curiosity.",
+      "Chose technology over tradition.",
+      "Building products for the next generation of Sri Lanka."
+    ]
+  },
+  "contact": {
+    "email": "ahamednusaifofficial@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/ahamed-nusaif",
+    "github": "https://github.com/KindNusaif",
+    "resume": "/resume.pdf",
+    "subtitle": "I'm open to internships, collaborations, and weird side projects with people who care."
+  },
+  "projects": [
+    {
+      "title": "ForFuture",
+      "desc": "An AI-powered civic engagement platform that empowers young people to create meaningful social impact through volunteering, campaigns, petitions, AI-assisted idea generation, and community collaboration. Built to solve real-world challenges by connecting youth with opportunities to make a difference.",
+      "tech": ["React", "Vite", "Supabase", "Tailwind CSS", "AI"],
+      "links": [
+        { "label": "Live Demo", "href": "#", "primary": true },
+        { "label": "GitHub", "href": "#", "primary": false }
+      ]
+    },
+    {
+      "title": "NusaifOS Portfolio",
+      "desc": "A premium personal developer portfolio built with modern web technologies, smooth animations, responsive design, and a clean user experience. It showcases my projects, technical skills, and passion for building high-quality digital products.",
+      "tech": ["React", "Vite", "Framer Motion", "Tailwind CSS"],
+      "links": [
+        { "label": "Live Demo", "href": "#", "primary": true },
+        { "label": "GitHub", "href": "#", "primary": false }
+      ]
+    }
+  ],
+  "building": {
+    "text": "I'm an enthusiastic software developer, creative innovator, and problem solver who enjoys transforming ideas into impactful digital products. My focus is on Full-Stack Development, Artificial Intelligence, UI/UX, and scalable web applications. I continuously learn, experiment, and build solutions that solve real-world problems while exploring emerging technologies.",
+    "tags": ["AI", "Full Stack", "React", "Next.js", "Node.js", "Python", "Cloud", "Innovation", "Open Source"]
+  },
+  "skills": [
+    { "group": "Frontend", "level": 9 },
+    { "group": "Backend", "level": 7 },
+    { "group": "AI / ML", "level": 4 },
+    { "group": "Product Thinking", "level": 8 },
+    { "group": "Leadership", "level": 9 }
+  ],
+  "experience": [
+    { "iconName": "GraduationCap", "title": "Software Engineering Student", "org": "University", "date": "2024 — Present", "desc": "Building foundations in CS, software design, and systems." },
+    { "iconName": "Trophy", "title": "Robotics Competition — MicroMaze", "org": "National Level", "date": "2025", "desc": "Designed and programmed a maze-solving robot from scratch." },
+    { "iconName": "Sparkles", "title": "Hackathon Finalist", "org": "Multiple Hackathons", "date": "2024 — 2025", "desc": "Shipped prototypes spanning civic-tech, AI assistants and games." },
+    { "iconName": "Users", "title": "Leadership", "org": "Tech Community Lead", "date": "2024 — Present", "desc": "Mentoring peers and organizing community coding sessions." },
+    { "iconName": "Heart", "title": "Volunteer Work", "org": "Local Initiatives", "date": "Ongoing", "desc": "Volunteering for education and youth empowerment programs." }
+  ]
+}

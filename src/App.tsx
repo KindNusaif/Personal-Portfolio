@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SiteHeader, SiteFooter } from "@/components/portfolio/SiteHeader";
 import {
@@ -14,6 +14,7 @@ import {
   BlogSection,
 } from "@/components/portfolio/sections";
 import { Spotlight } from "@/components/portfolio/Spotlight";
+import { AdminPortal } from "@/components/portfolio/AdminPortal";
 
 const queryClient = new QueryClient();
 
@@ -52,12 +53,18 @@ function Portfolio() {
   );
 }
 
-function App() {
+export default function App() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (window.location.pathname === "/admin") {
+      setIsAdmin(true);
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Portfolio />
+      {isAdmin ? <AdminPortal /> : <Portfolio />}
     </QueryClientProvider>
   );
 }
-
-export default App;

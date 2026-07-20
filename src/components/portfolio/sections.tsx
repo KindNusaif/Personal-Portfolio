@@ -277,32 +277,27 @@ export function SectionHeading({
 }
 
 /* -------------------- Origin (About) -------------------- */
+import contentData from "@/data/content.json";
+
 export function AboutSection() {
   return (
-    <section id="journey" className="mx-auto max-w-6xl px-5 py-28 relative">
+    <section id="journey" className="mx-auto max-w-6xl px-5 py-28 border-b border-border/50">
       <SectionHeading
         eyebrow="01 / Origin"
-        title="I build at the intersection of technology and impact."
+        title="Who I am."
       />
-      <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="grid gap-12 md:grid-cols-[1fr_300px] items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-xl md:text-2xl leading-relaxed text-muted-foreground font-display"
         >
-          <p className="mb-6">
-            <span className="text-foreground font-medium">Born in Puttalam.</span>
-          </p>
-          <p className="mb-6">
-            Raised by <span className="text-accent italic">curiosity</span>.
-          </p>
-          <p className="mb-6">
-            Chose technology over tradition.
-          </p>
-          <p className="text-foreground">
-            Building products for the next generation of Sri Lanka.
-          </p>
+          {contentData.about.paragraphs.map((p, i) => (
+            <p key={i} className={`mb-6 ${i === 0 ? "text-foreground font-medium" : ""} ${i === contentData.about.paragraphs.length - 1 ? "text-foreground" : ""}`}>
+              {p.includes("curiosity") ? <>Raised by <span className="text-accent italic">curiosity</span>.</> : p}
+            </p>
+          ))}
         </motion.div>
 
         <motion.div
@@ -324,32 +319,8 @@ export function AboutSection() {
   );
 }
 
-/* -------------------- Projects (Work) -------------------- */
 export function WorkSection() {
-  const projects = [
-    {
-      title: "ForFuture",
-      desc: "An AI-powered civic engagement platform that empowers young people to create meaningful social impact through volunteering, campaigns, petitions, AI-assisted idea generation, and community collaboration. Built to solve real-world challenges by connecting youth with opportunities to make a difference.",
-      tech: ["React", "Vite", "Supabase", "Tailwind CSS", "AI"],
-      links: [
-        { label: "Live Demo", href: "#", primary: true },
-        { label: "GitHub", href: "#", primary: false },
-      ],
-    },
-    {
-      title: "NusaifOS Portfolio",
-      desc: "A premium personal developer portfolio built with modern web technologies, smooth animations, responsive design, and a clean user experience. It showcases my projects, technical skills, and passion for building high-quality digital products.",
-      tech: ["React", "Vite", "Framer Motion", "Tailwind CSS"],
-      links: [
-        { label: "Live Demo", href: "#", primary: true },
-        { label: "GitHub", href: "#", primary: false },
-      ],
-    },
-  ];
-
-  const buildingTags = [
-    "AI", "Full Stack", "React", "Next.js", "Node.js", "Python", "Cloud", "Innovation", "Open Source"
-  ];
+  const { projects, building } = contentData;
 
   return (
     <section id="projects" className="mx-auto max-w-6xl px-5 py-28 relative">
@@ -434,13 +405,13 @@ export function WorkSection() {
                 </h3>
                 
                 <p className="text-muted-foreground leading-relaxed">
-                  I'm an enthusiastic software developer, creative innovator, and problem solver who enjoys transforming ideas into impactful digital products. My focus is on Full-Stack Development, Artificial Intelligence, UI/UX, and scalable web applications. I continuously learn, experiment, and build solutions that solve real-world problems while exploring emerging technologies.
+                  {building.text}
                 </p>
               </div>
 
               <div className="flex-1 max-w-sm">
                 <div className="flex flex-wrap gap-2 md:justify-end">
-                  {buildingTags.map((tag, i) => (
+                  {building.tags.map((tag, i) => (
                     <motion.span
                       key={tag}
                       initial={{ opacity: 0, scale: 0.9 }}
@@ -464,14 +435,6 @@ export function WorkSection() {
 }
 
 /* -------------------- Stack (Toolbox) -------------------- */
-const ARSENAL = [
-  { group: "Frontend", level: 9 },
-  { group: "Backend", level: 7 },
-  { group: "AI / ML", level: 4 },
-  { group: "Product Thinking", level: 8 },
-  { group: "Leadership", level: 9 },
-];
-
 function BlockLevel({ level }: { level: number }) {
   const blocks = "██████████".split("");
   return (
@@ -494,7 +457,7 @@ export function StackSection() {
       />
       <div className="max-w-3xl bg-card/40 backdrop-blur-md rounded-2xl border border-border/50 p-8 md:p-12 shadow-2xl">
         <div className="space-y-8">
-          {ARSENAL.map((item, i) => (
+          {contentData.skills.map((item, i) => (
              <motion.div
                key={item.group}
                initial={{ opacity: 0, x: -20 }}
@@ -514,13 +477,16 @@ export function StackSection() {
 }
 
 /* -------------------- Path (Experience timeline) -------------------- */
-const TIMELINE = [
-  { icon: GraduationCap, title: "Software Engineering Student", org: "University", date: "2024 — Present", desc: "Building foundations in CS, software design, and systems." },
-  { icon: Trophy, title: "Robotics Competition — MicroMaze", org: "National Level", date: "2025", desc: "Designed and programmed a maze-solving robot from scratch." },
-  { icon: Sparkles, title: "Hackathon Finalist", org: "Multiple Hackathons", date: "2024 — 2025", desc: "Shipped prototypes spanning civic-tech, AI assistants and games." },
-  { icon: Users, title: "Leadership", org: "Tech Community Lead", date: "2024 — Present", desc: "Mentoring peers and organizing community coding sessions." },
-  { icon: Heart, title: "Volunteer Work", org: "Local Initiatives", date: "Ongoing", desc: "Volunteering for education and youth empowerment programs." },
-];
+const ICON_MAP: Record<string, any> = {
+  GraduationCap,
+  Trophy,
+  Sparkles,
+  Users,
+  Heart,
+  Code2,
+  Rocket
+};
+
 export function PathSection() {
   return (
     <section id="experience" className="mx-auto max-w-6xl px-5 py-28">
@@ -531,8 +497,8 @@ export function PathSection() {
       <div className="relative">
         <div className="absolute left-5 top-0 bottom-0 w-px bg-border md:left-1/2" />
         <ol className="space-y-10">
-          {TIMELINE.map((t, i) => {
-            const Icon = t.icon;
+          {contentData.experience.map((t, i) => {
+            const Icon = ICON_MAP[t.iconName] || Code2;
             const left = i % 2 === 0;
             return (
               <motion.li
@@ -613,11 +579,12 @@ export function BlogSection() {
 
 /* -------------------- Contact -------------------- */
 export function ContactSection() {
+  const { contact } = contentData;
   const links = [
-    { icon: Mail, label: "ahamednusaifofficial@gmail.com", href: "mailto:ahamednusaifofficial@gmail.com" },
-    { icon: ExternalLink, label: "www.linkedin.com/in/ahamed-nusaif", href: "https://www.linkedin.com/in/ahamed-nusaif" },
-    { icon: GitBranch, label: "github.com/KindNusaif", href: "https://github.com/KindNusaif" },
-    { icon: FileText, label: "Download Resume", href: "/resume.pdf" },
+    { icon: Mail, label: contact.email, href: `mailto:${contact.email}` },
+    { icon: ExternalLink, label: contact.linkedin.replace(/^https?:\/\//, ''), href: contact.linkedin },
+    { icon: GitBranch, label: contact.github.replace(/^https?:\/\//, ''), href: contact.github },
+    { icon: FileText, label: "Download Resume", href: contact.resume },
   ];
   return (
     <section id="contact" className="relative isolate overflow-hidden">
@@ -625,7 +592,7 @@ export function ContactSection() {
         <SectionHeading
           eyebrow="07 / Say hi"
           title="Let's build something meaningful together."
-          subtitle="I'm open to internships, collaborations, and weird side projects with people who care."
+          subtitle={contact.subtitle}
         />
         <div className="grid gap-4 sm:grid-cols-2">
           {links.map((l, i) => {
