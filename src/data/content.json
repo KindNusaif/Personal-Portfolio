@@ -17,25 +17,50 @@
   "projects": [
     {
       "title": "ForFuture",
-      "desc": "An AI-powered civic engagement platform that empowers young people to create meaningful social impact through volunteering, campaigns, petitions, AI-assisted idea generation, and community collaboration. Built to solve real-world challenges by connecting youth with opportunities to make a difference.",
+      "type": "Startup Platform",
+      "role": "Founder & Full Stack Developer",
+      "status": "Prototype v0.8",
+      "timeline": "2026 - Present",
+      "impact": "Empowering youth through civic engagement",
+      "imageUrl": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200&auto=format&fit=crop",
+      "desc": "A youth-powered platform for civic engagement and social impact — where ideas turn into measurable change.",
       "tech": ["React", "Vite", "Supabase", "Tailwind CSS", "AI"],
+      "story": {
+        "why": "I saw a gap between young people's desire to make a difference and the tools available to them.",
+        "problem": "Youth voices are often marginalized in civic tech and community planning.",
+        "solution": "Built a scalable platform that directly connects youth initiatives with actionable resources and community feedback.",
+        "next": "Launching the beta program and onboarding the first 500 users."
+      },
       "links": [
-        { "label": "Live Demo", "href": "#", "primary": true },
-        { "label": "GitHub", "href": "#", "primary": false }
+        { "label": "Launch Project →", "href": "#", "primary": true },
+        { "label": "Source Code →", "href": "#", "primary": false },
+        { "label": "Case Study →", "href": "#notes", "primary": false }
       ]
     },
     {
       "title": "NusaifOS Portfolio",
-      "desc": "A premium personal developer portfolio built with modern web technologies, smooth animations, responsive design, and a clean user experience. It showcases my projects, technical skills, and passion for building high-quality digital products.",
+      "type": "Digital Identity",
+      "role": "Design Engineer",
+      "status": "Deployed v2.0",
+      "timeline": "2026",
+      "impact": "A new standard for developer portfolios",
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
+      "desc": "A premium personal developer portfolio built with modern web technologies, smooth animations, responsive design, and a clean user experience.",
       "tech": ["React", "Vite", "Framer Motion", "Tailwind CSS"],
+      "story": {
+        "why": "Standard developer portfolios felt like templates. I wanted an operating system that documented my journey.",
+        "problem": "Most portfolios list technologies instead of telling a story about the builder's vision and capabilities.",
+        "solution": "Engineered a highly interactive, futuristic interface focusing on typography, whitespace, and micro-interactions.",
+        "next": "Continually expanding the capability matrix and writing mission logs."
+      },
       "links": [
-        { "label": "Live Demo", "href": "#", "primary": true },
-        { "label": "GitHub", "href": "#", "primary": false }
+        { "label": "Launch Project →", "href": "#", "primary": true },
+        { "label": "Source Code →", "href": "#", "primary": false }
       ]
     }
   ],
   "building": {
-    "text": "I'm an enthusiastic software developer, creative innovator, and problem solver who enjoys transforming ideas into impactful digital products. My focus is on Full-Stack Development, Artificial Intelligence, UI/UX, and scalable web applications. I continuously learn, experiment, and build solutions that solve real-world problems while exploring emerging technologies.",
+    "text": "I'm a software developer building products for the next generation of Sri Lanka. My focus is on Full-Stack Development, AI, and scalable web applications. I learn by shipping real solutions to real problems, not just reading about them.",
     "tags": ["AI", "Full Stack", "React", "Next.js", "Node.js", "Python", "Cloud", "Innovation", "Open Source"]
   },
   "skills": [
@@ -45,11 +70,34 @@
     { "group": "Product Thinking", "level": 8 },
     { "group": "Leadership", "level": 9 }
   ],
-  "experience": [
-    { "iconName": "GraduationCap", "title": "Software Engineering Student", "org": "University", "date": "2024 — Present", "desc": "Building foundations in CS, software design, and systems." },
-    { "iconName": "Trophy", "title": "Robotics Competition — MicroMaze", "org": "National Level", "date": "2025", "desc": "Designed and programmed a maze-solving robot from scratch." },
-    { "iconName": "Sparkles", "title": "Hackathon Finalist", "org": "Multiple Hackathons", "date": "2024 — 2025", "desc": "Shipped prototypes spanning civic-tech, AI assistants and games." },
-    { "iconName": "Users", "title": "Leadership", "org": "Tech Community Lead", "date": "2024 — Present", "desc": "Mentoring peers and organizing community coding sessions." },
-    { "iconName": "Heart", "title": "Volunteer Work", "org": "Local Initiatives", "date": "Ongoing", "desc": "Volunteering for education and youth empowerment programs." }
+  "missionLogs": [
+    { "year": "2024", "log": "Started Software Engineering. Began building foundations in CS, software design, and systems." },
+    { "year": "2025", "log": "Built first production applications. Shipped prototypes spanning civic-tech, AI assistants and games. Designed and programmed a maze-solving robot from scratch." },
+    { "year": "2026", "log": "Launched ForFuture. Focusing on youth empowerment and scalable tech solutions." },
+    { "year": "Future", "log": "Building products for millions. Creating technology that shapes the future and empowers communities globally." }
+  ],
+  "certificates": [
+    {
+      "id": "1",
+      "title": "Meta Front-End Developer Specialization",
+      "issuer": "Meta (Coursera)",
+      "issueDate": "May 2025",
+      "expiryDate": "No Expiration",
+      "credentialId": "META-FE-2025-88",
+      "credentialUrl": "https://coursera.org/verify/specialization/meta-frontend",
+      "imageUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop",
+      "skills": ["React", "JavaScript", "HTML/CSS", "UI/UX", "Version Control"]
+    },
+    {
+      "id": "2",
+      "title": "AWS Certified Cloud Practitioner",
+      "issuer": "Amazon Web Services",
+      "issueDate": "Jan 2025",
+      "expiryDate": "Jan 2028",
+      "credentialId": "AWS-CCP-2025-01",
+      "credentialUrl": "https://aws.amazon.com/verification",
+      "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+      "skills": ["Cloud Computing", "AWS Services", "Cloud Security", "Architecture"]
+    }
   ]
 }

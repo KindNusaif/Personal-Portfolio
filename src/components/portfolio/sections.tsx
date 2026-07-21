@@ -9,14 +9,14 @@ import {
   GitBranch,
   ExternalLink,
   Mail,
-  Cpu,
-  Gamepad2,
-  Code2,
   Sparkles,
   GraduationCap,
-  Trophy,
-  Users,
-  Heart,
+  User,
+  Briefcase,
+  MapPin,
+  Target,
+  Quote,
+  Mouse,
 } from "lucide-react";
 
 /* -------------------- Scroll progress -------------------- */
@@ -80,89 +80,74 @@ function TypingLine({ text }: { text: string }) {
 /* -------------------- HERO -------------------- */
 export function HeroSection() {
   return (
-    <section id="top" className="relative isolate overflow-hidden pt-32 pb-24 aurora-bg noise-bg">
+    <section id="top" className="relative isolate min-h-screen pt-32 pb-24 aurora-bg noise-bg flex items-center">
       <div className="absolute inset-0 grid-bg opacity-50" />
       <div className="absolute inset-0">
         <Particles />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-5 flex flex-col md:flex-row gap-12 items-center">
+      <div className="relative mx-auto w-full max-w-7xl px-5 flex flex-col lg:flex-row gap-16 lg:gap-12 items-center justify-between">
         
-        <div className="flex-1 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-            <TypingLine text="> booting Nusaif OS v2.0..." />
-          </motion.div>
-
+        {/* Left Side Content */}
+        <div className="flex-1 w-full max-w-2xl">
           <motion.h1
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.1,
-                  delayChildren: 0.1,
-                },
-              },
-            }}
-            className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.05] tracking-tight text-balance font-display"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] tracking-tight text-balance mb-6"
           >
-            {["The", "Journey", "of"].map((word, i) => (
-              <motion.span
-                key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-                }}
-                className="inline-block mr-3 sm:mr-4"
-              >
-                {word}
-              </motion.span>
-            ))}
-            <motion.span
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-              }}
-              className="inline-block text-primary"
-            >
-              Nusaif.
-            </motion.span>
+            Building today<br/>
+            for a better<br/>
+            <span className="text-primary">tomorrow.</span>
           </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+            className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl"
+          >
+            Engineer by skill. <span className="text-foreground font-semibold">Builder</span> by choice. I create solutions that <span className="text-primary">empower people</span> and <span className="text-primary">shape communities</span>.
+          </motion.p>
           
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-8 font-mono text-sm sm:text-base text-muted-foreground leading-relaxed p-6 rounded-2xl border border-border/50 bg-card/40 backdrop-blur-md shadow-2xl max-w-xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="font-mono text-sm sm:text-base text-muted-foreground p-6 rounded-2xl border border-border/40 bg-card/20 backdrop-blur-md shadow-2xl mb-10 relative overflow-hidden"
           >
-            <div className="flex justify-between border-b border-border/50 pb-2 mb-4">
-              <span className="text-accent uppercase tracking-widest text-xs">Identity Module</span>
-              <span className="text-xs opacity-50">ID: NS-042</span>
+            <div className="absolute top-4 right-4 h-1.5 w-1.5 rounded-full bg-primary blink" />
+            <div className="flex justify-between items-center border-b border-border/40 pb-3 mb-4">
+              <span className="text-primary uppercase tracking-[0.2em] text-[10px] flex items-center">
+                <span className="h-2 w-2 rounded-full bg-primary mr-2" />
+                PROFILE OVERVIEW
+              </span>
+              <span className="text-[10px] opacity-60 tracking-wider">ID: NS-042</span>
             </div>
-            <div className="grid grid-cols-[100px_1fr] gap-3">
-              <span className="text-foreground/50">NAME</span>
+            
+            <div className="grid grid-cols-[30px_90px_1fr] sm:grid-cols-[30px_100px_1fr] gap-y-4 gap-x-2 items-center text-[13px] sm:text-sm">
+              <User className="h-4 w-4 text-muted-foreground" />
+              <span className="text-muted-foreground tracking-wide">NAME</span>
               <span className="text-foreground">Ahamed Nusaif</span>
               
-              <span className="text-foreground/50">ROLE</span>
+              <Briefcase className="h-4 w-4 text-muted-foreground" />
+              <span className="text-muted-foreground tracking-wide">ROLE</span>
               <span className="text-foreground">Future Builder</span>
               
-              <span className="text-foreground/50">LOCATION</span>
+              <MapPin className="h-4 w-4 text-muted-foreground" />
+              <span className="text-muted-foreground tracking-wide">LOCATION</span>
               <span className="text-foreground">Sri Lanka</span>
               
-              <span className="text-foreground/50">STATUS</span>
+              <Target className="h-4 w-4 text-primary" />
+              <span className="text-muted-foreground tracking-wide">FOCUS</span>
               <span className="text-primary font-medium">Building ForFuture</span>
               
-              <span className="text-foreground/50">MISSION</span>
-              <span className="text-foreground">Empower Youth</span>
+              <Rocket className="h-4 w-4 text-muted-foreground" />
+              <span className="text-muted-foreground tracking-wide">MISSION</span>
+              <span className="text-foreground">Empower Youth. Drive Change.</span>
               
-              <span className="text-foreground/50">LEVEL</span>
+              <GraduationCap className="h-4 w-4 text-muted-foreground" />
+              <span className="text-muted-foreground tracking-wide">LEVEL</span>
               <span className="text-foreground">Undergraduate 2.0</span>
             </div>
           </motion.div>
@@ -170,30 +155,57 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.5 }}
-            className="mt-10 flex flex-wrap gap-3"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap gap-4 mb-16"
           >
             <a
-              href="#built"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:brightness-110"
+              href="#projects"
+              className="group inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110 shadow-lg shadow-primary/20 hover:shadow-primary/40"
             >
-              <Rocket className="h-4 w-4" /> Explore Work
+              <Rocket className="h-4 w-4" /> View Projects
               <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-6 py-3 text-sm font-medium transition hover:border-accent hover:bg-accent/10"
+              className="inline-flex items-center gap-2 rounded-xl border border-border/50 bg-secondary/10 hover:bg-secondary/20 px-7 py-3.5 text-sm font-medium transition-colors"
             >
-              <MessageCircle className="h-4 w-4" /> Initiate Contact
+              <MessageCircle className="h-4 w-4" /> Let's Build Together
             </a>
+          </motion.div>
+
+          {/* Footer of Hero */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-muted-foreground"
+          >
+            <div className="flex items-center gap-2">
+              <Mouse className="h-4 w-4 animate-bounce" />
+              <span>Scroll to explore</span>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <span>Let's connect</span>
+              <div className="flex gap-2">
+                <a href="#" className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="#" className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="#" className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors"><Mail className="h-4 w-4" /></a>
+              </div>
+            </div>
           </motion.div>
         </div>
 
-        <div className="flex-1 w-full max-w-md hidden md:block">
+        {/* Right Side Content */}
+        <div className="flex-1 w-full max-w-lg lg:max-w-md hidden lg:block">
            <CurrentlyBuilding />
         </div>
       </div>
-      <div className="md:hidden px-5 mt-12"><CurrentlyBuilding /></div>
+      <div className="lg:hidden px-5 mt-12 w-full max-w-lg mx-auto"><CurrentlyBuilding /></div>
     </section>
   );
 }
@@ -201,53 +213,71 @@ export function HeroSection() {
 /* -------------------- Currently Building -------------------- */
 function CurrentlyBuilding() {
   return (
-    <motion.div
-      id="building"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.3, duration: 0.8 }}
-      whileHover={{ y: -5, rotateX: 2, rotateY: -2 }}
-      style={{ transformPerspective: 1000 }}
-      className="rounded-2xl border border-primary/20 bg-card/60 p-6 backdrop-blur-2xl md:p-8 shadow-2xl shadow-primary/10 ring-1 ring-white/5 transition-all group hover:bg-card/80 hover:shadow-primary/20"
-    >
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent blink" />
-            Currently Building
-          </div>
-          <h3 className="mt-3 text-2xl font-semibold">ForFuture</h3>
-          <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-            A youth-powered platform for civic engagement and social impact —
-            where ideas turn into measurable change.
-          </p>
+    <div className="w-full relative">
+      <motion.div
+        id="building"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+        whileHover={{ y: -5 }}
+        className="rounded-3xl border border-border/40 bg-card/20 p-8 backdrop-blur-xl shadow-2xl transition-all group"
+      >
+        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-primary mb-6">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary blink" />
+          CURRENTLY BUILDING
         </div>
-        <span className="chip">v0.8 · pre-release</span>
-      </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-[1fr_auto]">
-        <div>
-          <div className="flex items-center justify-between text-xs font-mono text-muted-foreground">
-            <span>Status</span>
-            <span className="text-foreground">80%</span>
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <h3 className="text-3xl font-bold tracking-tight">ForFuture</h3>
+          <div className="text-primary opacity-80 mt-1">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12l5.25 5 2.625-3 2.625 3 5.25-5-2.625-3-2.625 3-2.625-3-2.625 3L2 12z"/><path d="M12 2v20"/><path d="M22 12l-5.25-5-2.625 3-2.625-3-5.25 5 2.625 3 2.625-3 2.625 3 2.625-3L22 12z"/></svg>
           </div>
-          <div className="mt-2 h-2 overflow-hidden rounded-full bg-secondary">
+        </div>
+
+        <p className="text-sm text-muted-foreground/90 leading-relaxed mb-6 font-mono">
+          A youth-powered platform for civic engagement<br/>
+          and social impact — where ideas turn into<br/>
+          measurable change.
+        </p>
+        
+        <div className="inline-block mb-10">
+          <span className="px-3 py-1 text-xs font-mono rounded-full border border-primary/30 bg-primary/10 text-primary">v0.8 • pre-release</span>
+        </div>
+
+        <div className="border-t border-border/40 pt-6 flex justify-between items-center mb-2">
+          <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">PROGRESS</span>
+          <span className="text-sm font-bold font-mono">80%</span>
+        </div>
+        
+        <div className="flex justify-between items-end">
+          <div className="w-[60%] h-1.5 overflow-hidden rounded-full bg-secondary">
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "80%" }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="h-full bg-gradient-to-r from-primary to-accent"
+              animate={{ width: "80%" }}
+              transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+              className="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(var(--color-primary),0.8)]"
             />
           </div>
+          <div className="text-right">
+            <span className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest block mb-1">UPDATE CADENCE</span>
+            <span className="text-sm font-mono text-foreground font-semibold">Monthly</span>
+          </div>
         </div>
-        <div className="font-mono text-xs text-muted-foreground md:text-right">
-          Expected Next Release
-          <div className="mt-1 text-foreground">August 2026</div>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.6 }}
+        className="relative mt-12 pl-6"
+      >
+        <Quote className="absolute -left-2 -top-2 h-6 w-6 text-primary/30 rotate-180" />
+        <p className="text-[15px] font-mono text-muted-foreground leading-loose">
+          I don't just follow the path—<br/>
+          I <span className="text-primary font-semibold">build</span> the next one.
+        </p>
+      </motion.div>
+    </div>
   );
 }
 
@@ -279,45 +309,7 @@ export function SectionHeading({
 /* -------------------- Origin (About) -------------------- */
 import contentData from "@/data/content.json";
 
-export function AboutSection() {
-  return (
-    <section id="journey" className="mx-auto max-w-6xl px-5 py-28 border-b border-border/50">
-      <SectionHeading
-        eyebrow="01 / Origin"
-        title="Who I am."
-      />
-      <div className="grid gap-12 md:grid-cols-[1fr_300px] items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-xl md:text-2xl leading-relaxed text-muted-foreground font-display"
-        >
-          {contentData.about.paragraphs.map((p, i) => (
-            <p key={i} className={`mb-6 ${i === 0 ? "text-foreground font-medium" : ""} ${i === contentData.about.paragraphs.length - 1 ? "text-foreground" : ""}`}>
-              {p.includes("curiosity") ? <>Raised by <span className="text-accent italic">curiosity</span>.</> : p}
-            </p>
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="relative aspect-square rounded-full border border-border/50 bg-card/40 backdrop-blur-md flex items-center justify-center p-12 shadow-2xl"
-        >
-          <div className="absolute inset-0 rounded-full border border-primary/20 animate-[spin_10s_linear_infinite]" />
-          <div className="absolute inset-4 rounded-full border border-dashed border-accent/30 animate-[spin_15s_linear_infinite_reverse]" />
-          <div className="text-center z-10">
-            <div className="font-mono text-sm text-accent mb-2">SYSTEM.CORE</div>
-            <div className="text-4xl font-semibold">100%</div>
-            <div className="text-sm text-muted-foreground mt-1 uppercase tracking-widest">Passion</div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+export { OriginSection as AboutSection } from "./OriginSection";
 
 export function WorkSection() {
   const { projects, building } = contentData;
@@ -330,48 +322,110 @@ export function WorkSection() {
       />
 
       <div className="mt-12 flex flex-col gap-12">
-        {/* Project Cards - Grid */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {projects.map((p, i) => (
+        {/* Project Cards */}
+        <div className="flex flex-col gap-16">
+          {projects.map((p: any, i: number) => (
             <motion.div
               key={p.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 hover:bg-white/[0.04] hover:shadow-[0_0_40px_-10px_rgba(var(--color-primary),0.1)]"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="group relative overflow-hidden rounded-[2.5rem] border border-border/40 bg-card/10 backdrop-blur-3xl transition-all duration-700 hover:border-primary/30 shadow-2xl"
             >
-              {/* Glowing Hover Effect */}
-              <div className="absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-3xl" style={{
-                background: `linear-gradient(135deg, transparent 40%, color-mix(in oklab, var(--primary) 20%, transparent), color-mix(in oklab, var(--spark) 20%, transparent))`
-              }} />
-
-              <div className="relative z-10">
-                <h3 className="text-2xl font-semibold tracking-tight text-foreground/90 group-hover:text-foreground transition-colors">{p.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground/90">{p.desc}</p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {p.tech.map((t) => (
-                    <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-mono text-muted-foreground transition-colors group-hover:border-primary/20 group-hover:text-foreground/80">
-                      {t}
+              {/* Layout for Image and Content */}
+              <div className="flex flex-col lg:flex-row h-full">
+                
+                {/* Image Section */}
+                <div className="lg:w-5/12 relative overflow-hidden bg-muted/20 border-b lg:border-b-0 lg:border-r border-border/40">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10 lg:hidden" />
+                  <img 
+                    src={p.imageUrl} 
+                    alt={p.title} 
+                    className="h-[300px] lg:h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100 mix-blend-luminosity group-hover:mix-blend-normal"
+                  />
+                  <div className="absolute top-6 left-6 z-20">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-background/80 backdrop-blur-md px-3 py-1.5 text-[10px] font-mono text-primary uppercase tracking-widest shadow-lg">
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                      {p.status}
                     </span>
-                  ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="relative z-10 mt-10 flex gap-4">
-                {p.links.map(link => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
-                      link.primary 
-                      ? "bg-foreground text-background hover:bg-foreground/90 hover:scale-105" 
-                      : "bg-white/5 border border-white/10 text-foreground/80 hover:bg-white/10 hover:border-white/20 hover:text-foreground"
-                    }`}
-                  >
-                    {link.label} {link.primary && <ArrowUpRight className="h-4 w-4" />}
-                  </a>
-                ))}
+                {/* Content Section */}
+                <div className="lg:w-7/12 p-8 sm:p-12 flex flex-col justify-between relative z-20">
+                  <div>
+                    <h3 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-8 font-display">
+                      {p.title}
+                    </h3>
+                    
+                    {/* Metadata Grid */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-10 pb-10 border-b border-border/40">
+                      <div>
+                        <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-2 font-mono">PROJECT TYPE</div>
+                        <div className="text-sm font-medium text-foreground">{p.type}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-2 font-mono">ROLE</div>
+                        <div className="text-sm font-medium text-foreground">{p.role}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-2 font-mono">TIMELINE</div>
+                        <div className="text-sm font-medium text-foreground">{p.timeline}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-primary uppercase tracking-widest mb-2 font-mono">IMPACT</div>
+                        <div className="text-sm font-medium text-foreground">{p.impact}</div>
+                      </div>
+                    </div>
+
+                    {/* Storytelling Section */}
+                    {p.story && (
+                      <div className="space-y-6 mb-10">
+                        <div>
+                          <span className="text-[10px] font-mono text-accent uppercase tracking-widest block mb-2">/ Context</span>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{p.story.why} {p.story.problem}</p>
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-mono text-accent uppercase tracking-widest block mb-2">/ Solution</span>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{p.story.solution}</p>
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-mono text-accent uppercase tracking-widest block mb-2">/ Next</span>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{p.story.next}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Actions & Tech */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-border/20">
+                    <div className="flex flex-wrap gap-2">
+                      {p.tech.map((t: string) => (
+                        <span key={t} className="text-[11px] font-mono text-muted-foreground bg-secondary/30 px-2 py-1 rounded-md">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <div className="flex gap-3">
+                      {p.links.map((link: any) => (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${
+                            link.primary 
+                            ? "bg-primary text-primary-foreground hover:brightness-110 shadow-lg shadow-primary/20 hover:shadow-primary/40" 
+                            : "border border-border/50 text-foreground/80 hover:bg-secondary hover:text-foreground"
+                          }`}
+                        >
+                          {link.label} {link.primary && <ArrowUpRight className="h-3 w-3" />}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </motion.div>
           ))}
@@ -434,102 +488,151 @@ export function WorkSection() {
   );
 }
 
-/* -------------------- Stack (Toolbox) -------------------- */
-function BlockLevel({ level }: { level: number }) {
-  const blocks = "██████████".split("");
-  return (
-    <div className="flex gap-[2px]">
-      {blocks.map((b, i) => (
-        <span key={i} className={`text-sm ${i < level ? "text-primary" : "text-muted/30"}`}>
-          {b}
-        </span>
-      ))}
-    </div>
-  );
-}
+/* -------------------- Stack (Capability Matrix) -------------------- */
+const CAPABILITIES = [
+  {
+    category: "WEB ENGINEERING",
+    status: "ONLINE",
+    statusColor: "text-primary",
+    desc: "Building modern web experiences.",
+    tech: "React • Next.js • TypeScript • Tailwind",
+  },
+  {
+    category: "AI JOURNEY",
+    status: "LEARNING",
+    statusColor: "text-accent",
+    desc: "Learning and experimenting with AI technologies.",
+    tech: "Python • Gemini • Google ADK",
+  },
+  {
+    category: "PRODUCT BUILDING",
+    status: "ACTIVE",
+    statusColor: "text-primary",
+    desc: "Turning ideas into real applications.",
+    tech: "UI/UX • Prototyping • Research",
+  },
+  {
+    category: "COMMUNITY IMPACT",
+    status: "GROWING",
+    statusColor: "text-primary",
+    desc: "Building ForFuture and contributing to youth initiatives.",
+    tech: "IEEE • ForFuture • Collaboration",
+  },
+];
 
 export function StackSection() {
   return (
     <section id="toolbox" className="mx-auto max-w-6xl px-5 py-28">
+      <SectionHeading eyebrow="03 / Stack" title="Capability Matrix." />
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 mt-12">
+        {CAPABILITIES.map((cap, i) => (
+          <motion.div
+            key={cap.category}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/20 p-8 backdrop-blur-xl transition-all hover:border-primary/40 hover:bg-card/40"
+          >
+            {/* Background glow on hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            
+            <div className="relative z-10">
+              <h3 className="mb-6 font-mono text-lg font-semibold tracking-wider text-foreground">
+                {cap.category}
+              </h3>
+              
+              <div className="mb-6 grid grid-cols-[80px_1fr] items-center gap-4 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                <span>STATUS</span>
+                <span className={`flex items-center gap-2 font-semibold ${cap.statusColor}`}>
+                  <span className={`h-1.5 w-1.5 animate-pulse rounded-full ${cap.statusColor === "text-primary" ? "bg-primary" : "bg-accent"}`} />
+                  {cap.status}
+                </span>
+              </div>
+              
+              <div className="mb-6 h-px w-full bg-border/50" />
+              
+              <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+                {cap.desc}
+              </p>
+              
+              <div className="font-mono text-[11px] font-medium text-foreground/70 uppercase tracking-widest">
+                {cap.tech}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* -------------------- Mission Logs (Journey Timeline) -------------------- */
+export function MissionLogsSection() {
+  const logs = contentData.missionLogs || [];
+
+  return (
+    <section id="journey-logs" className="mx-auto max-w-6xl px-5 py-28">
       <SectionHeading
-        eyebrow="03 / Stack"
-        title="Current Arsenal."
+        eyebrow="04 / Mission Logs"
+        title="Timeline of a builder."
       />
-      <div className="max-w-3xl bg-card/40 backdrop-blur-md rounded-2xl border border-border/50 p-8 md:p-12 shadow-2xl">
-        <div className="space-y-8">
-          {contentData.skills.map((item, i) => (
-             <motion.div
-               key={item.group}
-               initial={{ opacity: 0, x: -20 }}
-               whileInView={{ opacity: 1, x: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: i * 0.1 }}
-               className="grid grid-cols-1 sm:grid-cols-[200px_1fr] items-center gap-2 sm:gap-4"
-             >
-               <span className="font-mono text-sm uppercase tracking-widest text-muted-foreground">{item.group}</span>
-               <BlockLevel level={item.level} />
-             </motion.div>
-          ))}
+
+      <div className="relative mt-16">
+        {/* Vertical timeline line */}
+        <div className="absolute left-[23px] top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-border/40 to-transparent" />
+
+        <div className="flex flex-col gap-0">
+          {logs.map((entry: any, i: number) => {
+            const isLast = i === logs.length - 1;
+            return (
+              <motion.div
+                key={entry.year}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
+                className="group relative"
+              >
+                {/* Timeline node */}
+                <div className="absolute left-[23px] top-8 -translate-x-1/2 z-10">
+                  {isLast ? (
+                    <span className="relative flex h-4 w-4">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+                      <span className="relative inline-flex h-4 w-4 rounded-full bg-primary border-2 border-background shadow-[0_0_12px_rgba(var(--color-primary),0.6)]" />
+                    </span>
+                  ) : (
+                    <div className="h-3 w-3 rounded-full border-2 border-border bg-card transition-colors duration-300 group-hover:border-primary group-hover:bg-primary/20" />
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="pl-14 py-8 border-b border-border/30 last:border-b-0 group-hover:border-primary/20 transition-colors duration-500">
+                  <div className="flex items-baseline gap-6 mb-3">
+                    <span className={`font-mono text-2xl sm:text-3xl font-bold tracking-tight ${isLast ? "text-primary" : "text-foreground/80"}`}>
+                      {entry.year}
+                    </span>
+                    {isLast && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-mono text-primary uppercase tracking-widest">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                        NOW
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl group-hover:text-foreground/70 transition-colors duration-500">
+                    {entry.log}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-/* -------------------- Path (Experience timeline) -------------------- */
-const ICON_MAP: Record<string, any> = {
-  GraduationCap,
-  Trophy,
-  Sparkles,
-  Users,
-  Heart,
-  Code2,
-  Rocket
-};
-
-export function PathSection() {
-  return (
-    <section id="experience" className="mx-auto max-w-6xl px-5 py-28">
-      <SectionHeading
-        eyebrow="04 / Path"
-        title="A continuous journey of building."
-      />
-      <div className="relative">
-        <div className="absolute left-5 top-0 bottom-0 w-px bg-border md:left-1/2" />
-        <ol className="space-y-10">
-          {contentData.experience.map((t, i) => {
-            const Icon = ICON_MAP[t.iconName] || Code2;
-            const left = i % 2 === 0;
-            return (
-              <motion.li
-                key={t.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className={`relative md:grid md:grid-cols-2 md:gap-12 ${left ? "" : "md:[direction:rtl]"}`}
-              >
-                <div className="absolute left-5 -translate-x-1/2 md:left-1/2">
-                  <div className="grid h-9 w-9 place-items-center rounded-full border border-border bg-card backdrop-blur-xl">
-                    <Icon className="h-4 w-4 text-accent" />
-                  </div>
-                </div>
-                <div className={`pl-14 md:pl-0 md:[direction:ltr] ${left ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
-                  <div className="font-mono text-xs uppercase tracking-[0.2em] text-accent">{t.date}</div>
-                  <h4 className="mt-1 text-lg font-semibold">{t.title}</h4>
-                  <div className="text-sm text-muted-foreground">{t.org}</div>
-                  <p className="mt-2 text-sm text-muted-foreground">{t.desc}</p>
-                </div>
-              </motion.li>
-            );
-          })}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-export { LearningJourney as CertificatesSection } from "./LearningJourney";
+export { CertificatesSection } from "./CertificatesSection";
 
 /* -------------------- Blog -------------------- */
 const POSTS = [
@@ -590,7 +693,7 @@ export function ContactSection() {
     <section id="contact" className="relative isolate overflow-hidden">
       <div className="mx-auto max-w-6xl px-5 py-28">
         <SectionHeading
-          eyebrow="07 / Say hi"
+          eyebrow="07 / Connect"
           title="Let's build something meaningful together."
           subtitle={contact.subtitle}
         />

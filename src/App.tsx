@@ -5,7 +5,7 @@ import {
   HeroSection,
   AboutSection,
   WorkSection,
-  PathSection,
+  MissionLogsSection,
   ContactSection,
   MarqueeStrip,
   ScrollProgress,
@@ -42,7 +42,7 @@ function Portfolio() {
         <MarqueeStrip />
         <AboutSection />
         <WorkSection />
-        <PathSection />
+        <MissionLogsSection />
         <StackSection />
         <CertificatesSection />
         <BlogSection />

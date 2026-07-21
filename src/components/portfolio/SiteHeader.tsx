@@ -4,8 +4,8 @@ const NAV = [
   { href: "#journey", label: "Origin" },
   { href: "#built", label: "Work" },
   { href: "#toolbox", label: "Stack" },
-  { href: "#experience", label: "Path" },
-  { href: "#learning-journey", label: "Learning" },
+  { href: "#journey-logs", label: "Journey" },
+  { href: "#certificates", label: "Certificates" },
 ];
 
 export function SiteHeader() {
@@ -76,7 +76,7 @@ export function SiteHeader() {
           className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-xs font-mono font-medium text-primary-foreground transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:shadow-primary/20"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-accent blink" />
-          Say hi
+          Let's Build
         </a>
       </div>
     </header>

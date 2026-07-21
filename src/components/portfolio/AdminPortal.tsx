@@ -369,6 +369,152 @@ export function AdminPortal() {
             </div>
           </section>
 
+          {/* Certificates Section */}
+          <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
+            <h2 className="text-xl font-semibold mb-4">Certificates & Credentials</h2>
+            <div className="space-y-6">
+              {(content.certificates || []).map((cert: any, idx: number) => (
+                <div key={cert.id || idx} className="p-4 bg-background/40 border border-border/50 rounded-xl space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="font-mono text-xs font-semibold text-primary">Certificate #{idx + 1}</span>
+                    <button
+                      onClick={() => {
+                        const newCerts = content.certificates.filter((_: any, i: number) => i !== idx);
+                        setContent({ ...content, certificates: newCerts });
+                      }}
+                      className="text-xs text-red-400 hover:text-red-300"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Title</label>
+                      <input
+                        value={cert.title}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].title = e.target.value;
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Issuer / Organization</label>
+                      <input
+                        value={cert.issuer}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].issuer = e.target.value;
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Issue Date</label>
+                      <input
+                        value={cert.issueDate}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].issueDate = e.target.value;
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Expiry Date</label>
+                      <input
+                        value={cert.expiryDate || ""}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].expiryDate = e.target.value;
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Credential ID</label>
+                      <input
+                        value={cert.credentialId || ""}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].credentialId = e.target.value;
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Credential Verification URL</label>
+                      <input
+                        value={cert.credentialUrl || ""}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].credentialUrl = e.target.value;
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium mb-1">Image / Badge URL</label>
+                      <input
+                        value={cert.imageUrl || ""}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].imageUrl = e.target.value;
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-medium mb-1">Skills (comma separated)</label>
+                      <input
+                        value={cert.skills ? cert.skills.join(", ") : ""}
+                        onChange={(e) => {
+                          const newCerts = [...content.certificates];
+                          newCerts[idx].skills = e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean);
+                          setContent({ ...content, certificates: newCerts });
+                        }}
+                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <button
+                onClick={() => {
+                  const currentCerts = content.certificates || [];
+                  setContent({
+                    ...content,
+                    certificates: [
+                      ...currentCerts,
+                      {
+                        id: String(Date.now()),
+                        title: "New Certificate",
+                        issuer: "Issuer / Academy",
+                        issueDate: "2026",
+                        expiryDate: "No Expiration",
+                        credentialId: "",
+                        credentialUrl: "",
+                        imageUrl: "",
+                        skills: ["Skill 1", "Skill 2"]
+                      }
+                    ]
+                  });
+                }}
+                className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition"
+              >
+                + Add Certificate
+              </button>
+            </div>
+          </section>
+
           {/* Contact Section */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
             <h2 className="text-xl font-semibold mb-4">Contact Section</h2>

@@ -89,10 +89,10 @@ export function LearningJourney() {
       {/* Animated Statistics */}
       <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
         {[
-          { label: "Certifications", value: "25+" },
-          { label: "Workshops", value: "15+" },
-          { label: "Hackathons", value: "8+" },
-          { label: "Leadership Programs", value: "5+" },
+          { label: "Certifications", value: "2" },
+          { label: "Workshops", value: "0" },
+          { label: "Hackathons", value: "1" },
+          { label: "Leadership Programs", value: "0" },
         ].map((stat, i) => (
           <motion.div
             key={stat.label}
