@@ -11,25 +11,16 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { SectionHeading } from "./sections";
-import contentData from "@/data/content.json";
+import contentData from "@/data/index";
+import type { Certificate } from "@/types/content";
 
-export interface CertificateItem {
-  id: string;
-  title: string;
-  issuer: string;
-  issueDate: string;
-  expiryDate?: string;
-  credentialId?: string;
-  credentialUrl?: string;
-  imageUrl?: string;
-  skills: string[];
-}
+export type CertificateItem = Certificate;
 
 export function CertificatesSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null);
 
-  const certificates: CertificateItem[] = (contentData as any).certificates || [];
+  const certificates: CertificateItem[] = contentData.certificates;
 
   const filteredCerts = certificates.filter((cert) => {
     const matchesSearch =

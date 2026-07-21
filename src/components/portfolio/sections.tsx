@@ -1,5 +1,4 @@
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
 import { Particles } from "./Particles";
 import {
   ArrowUpRight,
@@ -9,7 +8,6 @@ import {
   GitBranch,
   ExternalLink,
   Mail,
-  Sparkles,
   GraduationCap,
   User,
   Briefcase,
@@ -18,6 +16,8 @@ import {
   Quote,
   Mouse,
 } from "lucide-react";
+import contentData from "@/data/index";
+import type { Project, ProjectLink } from "@/types/content";
 
 /* -------------------- Scroll progress -------------------- */
 export function ScrollProgress() {
@@ -57,28 +57,11 @@ export function MarqueeStrip() {
   );
 }
 
-/* -------------------- Typing -------------------- */
-function TypingLine({ text }: { text: string }) {
-  const [shown, setShown] = useState("");
-  useEffect(() => {
-    let i = 0;
-    const id = setInterval(() => {
-      i++;
-      setShown(text.slice(0, i));
-      if (i >= text.length) clearInterval(id);
-    }, 28);
-    return () => clearInterval(id);
-  }, [text]);
-  return (
-    <span className="font-mono text-sm text-accent">
-      {shown}
-      <span className="ml-0.5 inline-block h-4 w-[2px] -mb-0.5 bg-accent blink" />
-    </span>
-  );
-}
-
 /* -------------------- HERO -------------------- */
 export function HeroSection() {
+  const { identity, contact } = contentData;
+  const { profile } = identity;
+
   return (
     <section id="top" className="relative isolate min-h-screen pt-32 pb-24 aurora-bg noise-bg flex items-center">
       <div className="absolute inset-0 grid-bg opacity-50" />
@@ -96,9 +79,11 @@ export function HeroSection() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] tracking-tight text-balance mb-6"
           >
-            Building today<br/>
-            for a better<br/>
-            <span className="text-primary">tomorrow.</span>
+            {identity.headlineLine1}
+            <br />
+            {identity.headlineLine2}
+            <br />
+            <span className="text-primary">{identity.headlineAccent}</span>
           </motion.h1>
 
           <motion.p
@@ -107,7 +92,7 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
             className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl"
           >
-            Engineer by skill. <span className="text-foreground font-semibold">Builder</span> by choice. I create solutions that <span className="text-primary">empower people</span> and <span className="text-primary">shape communities</span>.
+            {identity.summary}
           </motion.p>
           
           <motion.div
@@ -122,33 +107,33 @@ export function HeroSection() {
                 <span className="h-2 w-2 rounded-full bg-primary mr-2" />
                 PROFILE OVERVIEW
               </span>
-              <span className="text-[10px] opacity-60 tracking-wider">ID: NS-042</span>
+              <span className="text-[10px] opacity-60 tracking-wider">ID: {profile.id}</span>
             </div>
             
             <div className="grid grid-cols-[30px_90px_1fr] sm:grid-cols-[30px_100px_1fr] gap-y-4 gap-x-2 items-center text-[13px] sm:text-sm">
               <User className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground tracking-wide">NAME</span>
-              <span className="text-foreground">Ahamed Nusaif</span>
+              <span className="text-foreground">{profile.name}</span>
               
               <Briefcase className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground tracking-wide">ROLE</span>
-              <span className="text-foreground">Future Builder</span>
+              <span className="text-foreground">{profile.role}</span>
               
               <MapPin className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground tracking-wide">LOCATION</span>
-              <span className="text-foreground">Sri Lanka</span>
+              <span className="text-foreground">{profile.location}</span>
               
               <Target className="h-4 w-4 text-primary" />
               <span className="text-muted-foreground tracking-wide">FOCUS</span>
-              <span className="text-primary font-medium">Building ForFuture</span>
+              <span className="text-primary font-medium">{profile.focus}</span>
               
               <Rocket className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground tracking-wide">MISSION</span>
-              <span className="text-foreground">Empower Youth. Drive Change.</span>
+              <span className="text-foreground">{profile.mission}</span>
               
               <GraduationCap className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground tracking-wide">LEVEL</span>
-              <span className="text-foreground">Undergraduate 2.0</span>
+              <span className="text-foreground">{profile.level}</span>
             </div>
           </motion.div>
 
@@ -188,13 +173,13 @@ export function HeroSection() {
             <div className="flex items-center gap-4">
               <span>Let's connect</span>
               <div className="flex gap-2">
-                <a href="#" className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors">
+                <a href={contact.linkedin} className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors" aria-label="LinkedIn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
-                <a href="#" className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors">
+                <a href={contact.github} className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors" aria-label="GitHub">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                 </a>
-                <a href="#" className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors"><Mail className="h-4 w-4" /></a>
+                <a href={`mailto:${contact.email}`} className="p-2 rounded-lg bg-card border border-border/40 hover:bg-secondary transition-colors" aria-label="Email"><Mail className="h-4 w-4" /></a>
               </div>
             </div>
           </motion.div>
@@ -212,6 +197,9 @@ export function HeroSection() {
 
 /* -------------------- Currently Building -------------------- */
 function CurrentlyBuilding() {
+  const { currentFocus, builderNotes } = contentData;
+  const progressWidth = `${Math.min(100, Math.max(0, currentFocus.progress))}%`;
+
   return (
     <div className="w-full relative">
       <motion.div
@@ -228,39 +216,37 @@ function CurrentlyBuilding() {
         </div>
 
         <div className="flex items-start justify-between gap-4 mb-4">
-          <h3 className="text-3xl font-bold tracking-tight">ForFuture</h3>
+          <h3 className="text-3xl font-bold tracking-tight">{currentFocus.title}</h3>
           <div className="text-primary opacity-80 mt-1">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12l5.25 5 2.625-3 2.625 3 5.25-5-2.625-3-2.625 3-2.625-3-2.625 3L2 12z"/><path d="M12 2v20"/><path d="M22 12l-5.25-5-2.625 3-2.625-3-5.25 5 2.625 3 2.625-3 2.625 3 2.625-3L22 12z"/></svg>
           </div>
         </div>
 
-        <p className="text-sm text-muted-foreground/90 leading-relaxed mb-6 font-mono">
-          A youth-powered platform for civic engagement<br/>
-          and social impact — where ideas turn into<br/>
-          measurable change.
+        <p className="text-sm text-muted-foreground/90 leading-relaxed mb-6 font-mono whitespace-pre-line">
+          {currentFocus.description}
         </p>
         
         <div className="inline-block mb-10">
-          <span className="px-3 py-1 text-xs font-mono rounded-full border border-primary/30 bg-primary/10 text-primary">v0.8 • pre-release</span>
+          <span className="px-3 py-1 text-xs font-mono rounded-full border border-primary/30 bg-primary/10 text-primary">{currentFocus.version}</span>
         </div>
 
         <div className="border-t border-border/40 pt-6 flex justify-between items-center mb-2">
           <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">PROGRESS</span>
-          <span className="text-sm font-bold font-mono">80%</span>
+          <span className="text-sm font-bold font-mono">{currentFocus.progress}%</span>
         </div>
         
         <div className="flex justify-between items-end">
           <div className="w-[60%] h-1.5 overflow-hidden rounded-full bg-secondary">
             <motion.div
               initial={{ width: 0 }}
-              animate={{ width: "80%" }}
+              animate={{ width: progressWidth }}
               transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
               className="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(var(--color-primary),0.8)]"
             />
           </div>
           <div className="text-right">
             <span className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest block mb-1">UPDATE CADENCE</span>
-            <span className="text-sm font-mono text-foreground font-semibold">Monthly</span>
+            <span className="text-sm font-mono text-foreground font-semibold">{currentFocus.updateCadence}</span>
           </div>
         </div>
       </motion.div>
@@ -272,9 +258,8 @@ function CurrentlyBuilding() {
         className="relative mt-12 pl-6"
       >
         <Quote className="absolute -left-2 -top-2 h-6 w-6 text-primary/30 rotate-180" />
-        <p className="text-[15px] font-mono text-muted-foreground leading-loose">
-          I don't just follow the path—<br/>
-          I <span className="text-primary font-semibold">build</span> the next one.
+        <p className="text-[15px] font-mono text-muted-foreground leading-loose whitespace-pre-line">
+          {builderNotes.quote}
         </p>
       </motion.div>
     </div>
@@ -306,9 +291,6 @@ export function SectionHeading({
   );
 }
 
-/* -------------------- Origin (About) -------------------- */
-import contentData from "@/data/content.json";
-
 export { OriginSection as AboutSection } from "./OriginSection";
 
 export function WorkSection() {
@@ -324,7 +306,7 @@ export function WorkSection() {
       <div className="mt-12 flex flex-col gap-12">
         {/* Project Cards */}
         <div className="flex flex-col gap-16">
-          {projects.map((p: any, i: number) => (
+          {projects.map((p: Project) => (
             <motion.div
               key={p.title}
               initial={{ opacity: 0, y: 40 }}
@@ -409,7 +391,7 @@ export function WorkSection() {
                     </div>
                     
                     <div className="flex gap-3">
-                      {p.links.map((link: any) => (
+                      {p.links.map((link: ProjectLink) => (
                         <a
                           key={link.label}
                           href={link.href}
@@ -489,43 +471,14 @@ export function WorkSection() {
 }
 
 /* -------------------- Stack (Capability Matrix) -------------------- */
-const CAPABILITIES = [
-  {
-    category: "WEB ENGINEERING",
-    status: "ONLINE",
-    statusColor: "text-primary",
-    desc: "Building modern web experiences.",
-    tech: "React • Next.js • TypeScript • Tailwind",
-  },
-  {
-    category: "AI JOURNEY",
-    status: "LEARNING",
-    statusColor: "text-accent",
-    desc: "Learning and experimenting with AI technologies.",
-    tech: "Python • Gemini • Google ADK",
-  },
-  {
-    category: "PRODUCT BUILDING",
-    status: "ACTIVE",
-    statusColor: "text-primary",
-    desc: "Turning ideas into real applications.",
-    tech: "UI/UX • Prototyping • Research",
-  },
-  {
-    category: "COMMUNITY IMPACT",
-    status: "GROWING",
-    statusColor: "text-primary",
-    desc: "Building ForFuture and contributing to youth initiatives.",
-    tech: "IEEE • ForFuture • Collaboration",
-  },
-];
-
 export function StackSection() {
+  const { capabilities } = contentData;
+
   return (
     <section id="toolbox" className="mx-auto max-w-6xl px-5 py-28">
       <SectionHeading eyebrow="03 / Stack" title="Capability Matrix." />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 mt-12">
-        {CAPABILITIES.map((cap, i) => (
+        {capabilities.map((cap, i) => (
           <motion.div
             key={cap.category}
             initial={{ opacity: 0, y: 20 }}
@@ -569,7 +522,7 @@ export function StackSection() {
 
 /* -------------------- Mission Logs (Journey Timeline) -------------------- */
 export function MissionLogsSection() {
-  const logs = contentData.missionLogs || [];
+  const logs = contentData.missionLogs;
 
   return (
     <section id="journey-logs" className="mx-auto max-w-6xl px-5 py-28">
@@ -583,7 +536,7 @@ export function MissionLogsSection() {
         <div className="absolute left-[23px] top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-border/40 to-transparent" />
 
         <div className="flex flex-col gap-0">
-          {logs.map((entry: any, i: number) => {
+          {logs.map((entry, i) => {
             const isLast = i === logs.length - 1;
             return (
               <motion.div
@@ -634,13 +587,10 @@ export function MissionLogsSection() {
 
 export { CertificatesSection } from "./CertificatesSection";
 
-/* -------------------- Blog -------------------- */
-const POSTS = [
-  { title: "Architecting ForFuture: A Technical Deep Dive", read: "8 min read", date: "May 2026" },
-  { title: "Why I Chose Vite Over Webpack for Modern React Apps", read: "5 min read", date: "Mar 2026" },
-  { title: "Building a Maze-Solving Robot from Scratch in C++", read: "10 min read", date: "Jan 2026" },
-];
+/* -------------------- Blog (Field Notes) -------------------- */
 export function BlogSection() {
+  const { fieldNotes } = contentData;
+
   return (
     <section id="blog" className="mx-auto max-w-6xl px-5 py-28">
       <SectionHeading
@@ -648,7 +598,7 @@ export function BlogSection() {
         title="Things I wrote down so I wouldn't forget."
       />
       <ul className="divide-y divide-border/50 rounded-3xl border border-border/50 bg-card/40 backdrop-blur-xl shadow-2xl overflow-hidden">
-        {POSTS.map((p, i) => (
+        {fieldNotes.map((p, i) => (
           <motion.li
             key={p.title}
             initial={{ opacity: 0, x: -10 }}

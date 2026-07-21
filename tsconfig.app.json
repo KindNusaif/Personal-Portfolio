@@ -24,7 +24,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "strict": true
   },
   "include": ["src"]
 }

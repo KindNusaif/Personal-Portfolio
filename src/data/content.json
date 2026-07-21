@@ -1,11 +1,44 @@
 {
+  "identity": {
+    "headlineLine1": "Building today",
+    "headlineLine2": "for a better",
+    "headlineAccent": "tomorrow.",
+    "summary": "Engineer by skill. Builder by choice. I create solutions that empower people and shape communities.",
+    "profile": {
+      "id": "NS-042",
+      "name": "Ahamed Nusaif",
+      "role": "Future Builder",
+      "location": "Sri Lanka",
+      "focus": "Building ForFuture",
+      "mission": "Empower Youth. Drive Change.",
+      "level": "Undergraduate 2.0"
+    }
+  },
   "about": {
-    "paragraphs": [
-      "Born in Puttalam.",
-      "Raised by curiosity.",
-      "Chose technology over tradition.",
-      "Building products for the next generation of Sri Lanka."
-    ]
+    "timeline": [
+      {
+        "iconName": "MapPin",
+        "title": "Born in Puttalam.",
+        "desc": "Curiosity is my foundation."
+      },
+      {
+        "iconName": "BrainCircuit",
+        "title": "Raised by curiosity.",
+        "desc": "Innovation is my mindset."
+      },
+      {
+        "iconName": "Code2",
+        "title": "Chose technology over tradition.",
+        "desc": "Impact is my mission."
+      },
+      {
+        "iconName": "Rocket",
+        "title": "Building products for the next generation of Sri Lanka.",
+        "desc": "Building technology that shapes the future.",
+        "highlight": true
+      }
+    ],
+    "legacyQuote": "Not just building products. Building a legacy."
   },
   "contact": {
     "email": "ahamednusaifofficial@gmail.com",
@@ -63,18 +96,56 @@
     "text": "I'm a software developer building products for the next generation of Sri Lanka. My focus is on Full-Stack Development, AI, and scalable web applications. I learn by shipping real solutions to real problems, not just reading about them.",
     "tags": ["AI", "Full Stack", "React", "Next.js", "Node.js", "Python", "Cloud", "Innovation", "Open Source"]
   },
-  "skills": [
-    { "group": "Frontend", "level": 9 },
-    { "group": "Backend", "level": 7 },
-    { "group": "AI / ML", "level": 4 },
-    { "group": "Product Thinking", "level": 8 },
-    { "group": "Leadership", "level": 9 }
+  "currentFocus": {
+    "title": "ForFuture",
+    "description": "A youth-powered platform for civic engagement and social impact — where ideas turn into measurable change.",
+    "version": "v0.8 • pre-release",
+    "progress": 80,
+    "updateCadence": "Monthly"
+  },
+  "builderNotes": {
+    "quote": "I don't just follow the path— I build the next one."
+  },
+  "capabilities": [
+    {
+      "category": "WEB ENGINEERING",
+      "status": "ONLINE",
+      "statusColor": "text-primary",
+      "desc": "Building modern web experiences.",
+      "tech": "React • Next.js • TypeScript • Tailwind"
+    },
+    {
+      "category": "AI JOURNEY",
+      "status": "LEARNING",
+      "statusColor": "text-accent",
+      "desc": "Learning and experimenting with AI technologies.",
+      "tech": "Python • Gemini • Google ADK"
+    },
+    {
+      "category": "PRODUCT BUILDING",
+      "status": "ACTIVE",
+      "statusColor": "text-primary",
+      "desc": "Turning ideas into real applications.",
+      "tech": "UI/UX • Prototyping • Research"
+    },
+    {
+      "category": "COMMUNITY IMPACT",
+      "status": "GROWING",
+      "statusColor": "text-primary",
+      "desc": "Building ForFuture and contributing to youth initiatives.",
+      "tech": "IEEE • ForFuture • Collaboration"
+    }
   ],
   "missionLogs": [
     { "year": "2024", "log": "Started Software Engineering. Began building foundations in CS, software design, and systems." },
     { "year": "2025", "log": "Built first production applications. Shipped prototypes spanning civic-tech, AI assistants and games. Designed and programmed a maze-solving robot from scratch." },
     { "year": "2026", "log": "Launched ForFuture. Focusing on youth empowerment and scalable tech solutions." },
     { "year": "Future", "log": "Building products for millions. Creating technology that shapes the future and empowers communities globally." }
+  ],
+  "fieldNotes": [
+    { "title": "Architecting ForFuture: A Technical Deep Dive", "read": "8 min read", "date": "May 2026" },
+    { "title": "Why I Chose Vite Over Webpack for Modern React Apps", "read": "5 min read", "date": "Mar 2026" },
+    { "title": "Building a Maze-Solving Robot from Scratch in C++", "read": "10 min read", "date": "Jan 2026" }
   ],
   "certificates": [
     {

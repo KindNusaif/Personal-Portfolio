@@ -1,11 +1,34 @@
 import { useState } from "react";
-import contentData from "@/data/content.json";
+import contentData from "@/data/index";
+import type { PortfolioContent, Project, ProjectLink } from "@/types/content";
+import {
+  createEmptyCapability,
+  createEmptyCertificate,
+  createEmptyFieldNote,
+  createEmptyMissionLog,
+  createEmptyProject,
+} from "@/types/content";
+
+type SaveStatus = { loading: boolean; error: string; success: string };
+
+const inputClass =
+  "w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary";
+const textareaClass = `${inputClass} min-h-[80px]`;
+const labelClass = "block text-xs font-medium mb-1";
+
+function updateProjectAt(
+  projects: Project[],
+  index: number,
+  updater: (project: Project) => Project
+): Project[] {
+  return projects.map((project, i) => (i === index ? updater(project) : project));
+}
 
 export function AdminPortal() {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [content, setContent] = useState(contentData);
-  const [status, setStatus] = useState({ loading: false, error: "", success: "" });
+  const [content, setContent] = useState<PortfolioContent>(contentData);
+  const [status, setStatus] = useState<SaveStatus>({ loading: false, error: "", success: "" });
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,22 +45,26 @@ export function AdminPortal() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password, content }),
       });
-      const data = await res.json();
-      
+      const data: { error?: string; message?: string } = await res.json();
+
       if (!res.ok) {
         throw new Error(data.error || "Failed to save");
       }
-      
-      setStatus({ loading: false, error: "", success: data.message });
-    } catch (err: any) {
-      setStatus({ loading: false, error: err.message, success: "" });
+
+      setStatus({ loading: false, error: "", success: data.message ?? "Saved" });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to save";
+      setStatus({ loading: false, error: message, success: "" });
     }
   };
 
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-5">
-        <form onSubmit={handleLogin} className="w-full max-w-sm bg-card/40 backdrop-blur-md p-8 rounded-2xl border border-border/50 shadow-2xl">
+        <form
+          onSubmit={handleLogin}
+          className="w-full max-w-sm bg-card/40 backdrop-blur-md p-8 rounded-2xl border border-border/50 shadow-2xl"
+        >
           <h2 className="text-2xl font-semibold mb-6">Admin Login</h2>
           <div className="space-y-4">
             <div>
@@ -46,11 +73,14 @@ export function AdminPortal() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+                className={inputClass}
                 required
               />
             </div>
-            <button type="submit" className="w-full bg-primary text-primary-foreground font-medium rounded-lg px-4 py-2 hover:opacity-90 transition-opacity">
+            <button
+              type="submit"
+              className="w-full bg-primary text-primary-foreground font-medium rounded-lg px-4 py-2 hover:opacity-90 transition-opacity"
+            >
               Login
             </button>
           </div>
@@ -74,125 +104,316 @@ export function AdminPortal() {
         </div>
 
         {status.error && (
-          <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-lg">
-            {status.error}
-          </div>
+          <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-lg">{status.error}</div>
         )}
         {status.success && (
-          <div className="bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-lg">
-            {status.success}
-          </div>
+          <div className="bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-lg">{status.success}</div>
         )}
 
         <div className="grid gap-8">
-          {/* About Section */}
+          {/* Identity */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
-            <h2 className="text-xl font-semibold mb-4">About Section</h2>
+            <h2 className="text-xl font-semibold mb-4">Identity</h2>
             <div className="space-y-4">
-              {content.about.paragraphs.map((p, i) => (
-                <div key={i} className="flex gap-2">
-                  <textarea
-                    value={p}
-                    onChange={(e) => {
-                      const newParagraphs = [...content.about.paragraphs];
-                      newParagraphs[i] = e.target.value;
-                      setContent({ ...content, about: { paragraphs: newParagraphs } });
-                    }}
-                    className="flex-1 bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary min-h-[60px]"
+              {(["headlineLine1", "headlineLine2", "headlineAccent"] as const).map((key) => (
+                <div key={key}>
+                  <label className={labelClass}>{key}</label>
+                  <input
+                    value={content.identity[key]}
+                    onChange={(e) =>
+                      setContent({
+                        ...content,
+                        identity: { ...content.identity, [key]: e.target.value },
+                      })
+                    }
+                    className={inputClass}
                   />
-                  <button 
+                </div>
+              ))}
+              <div>
+                <label className={labelClass}>Summary</label>
+                <textarea
+                  value={content.identity.summary}
+                  onChange={(e) =>
+                    setContent({
+                      ...content,
+                      identity: { ...content.identity, summary: e.target.value },
+                    })
+                  }
+                  className={textareaClass}
+                />
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4 pt-2 border-t border-border/40">
+                {(Object.keys(content.identity.profile) as Array<keyof typeof content.identity.profile>).map((key) => (
+                  <div key={key}>
+                    <label className={labelClass}>{key}</label>
+                    <input
+                      value={content.identity.profile[key]}
+                      onChange={(e) =>
+                        setContent({
+                          ...content,
+                          identity: {
+                            ...content.identity,
+                            profile: { ...content.identity.profile, [key]: e.target.value },
+                          },
+                        })
+                      }
+                      className={inputClass}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Origin */}
+          <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
+            <h2 className="text-xl font-semibold mb-4">Origin Timeline</h2>
+            <div className="space-y-4 mb-4">
+              <label className={labelClass}>Legacy quote</label>
+              <textarea
+                value={content.about.legacyQuote}
+                onChange={(e) =>
+                  setContent({ ...content, about: { ...content.about, legacyQuote: e.target.value } })
+                }
+                className={textareaClass}
+              />
+            </div>
+            <div className="space-y-6">
+              {content.about.timeline.map((item, idx) => (
+                <div key={idx} className="p-4 border border-border/50 rounded-xl space-y-3 relative">
+                  <button
+                    type="button"
                     onClick={() => {
-                      const newParagraphs = content.about.paragraphs.filter((_, index) => index !== i);
-                      setContent({ ...content, about: { paragraphs: newParagraphs } });
+                      const timeline = content.about.timeline.filter((_, i) => i !== idx);
+                      setContent({ ...content, about: { ...content.about, timeline } });
                     }}
-                    className="px-3 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition"
+                    className="absolute top-4 right-4 px-2 py-1 bg-red-500/10 text-red-400 text-xs rounded hover:bg-red-500/20"
                   >
-                    X
+                    Delete
                   </button>
+                  <input
+                    value={item.iconName}
+                    placeholder="Icon name (MapPin, Rocket, …)"
+                    onChange={(e) => {
+                      const timeline = [...content.about.timeline];
+                      timeline[idx] = { ...timeline[idx], iconName: e.target.value };
+                      setContent({ ...content, about: { ...content.about, timeline } });
+                    }}
+                    className={inputClass}
+                  />
+                  <input
+                    value={item.title}
+                    onChange={(e) => {
+                      const timeline = [...content.about.timeline];
+                      timeline[idx] = { ...timeline[idx], title: e.target.value };
+                      setContent({ ...content, about: { ...content.about, timeline } });
+                    }}
+                    className={inputClass}
+                  />
+                  <textarea
+                    value={item.desc}
+                    onChange={(e) => {
+                      const timeline = [...content.about.timeline];
+                      timeline[idx] = { ...timeline[idx], desc: e.target.value };
+                      setContent({ ...content, about: { ...content.about, timeline } });
+                    }}
+                    className={textareaClass}
+                  />
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(item.highlight)}
+                      onChange={(e) => {
+                        const timeline = [...content.about.timeline];
+                        timeline[idx] = { ...timeline[idx], highlight: e.target.checked };
+                        setContent({ ...content, about: { ...content.about, timeline } });
+                      }}
+                    />
+                    Highlight
+                  </label>
                 </div>
               ))}
               <button
-                onClick={() => setContent({ ...content, about: { paragraphs: [...content.about.paragraphs, ""] } })}
+                type="button"
+                onClick={() =>
+                  setContent({
+                    ...content,
+                    about: {
+                      ...content.about,
+                      timeline: [
+                        ...content.about.timeline,
+                        { iconName: "Rocket", title: "New milestone", desc: "" },
+                      ],
+                    },
+                  })
+                }
                 className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition"
               >
-                + Add Paragraph
+                + Add timeline item
               </button>
             </div>
           </section>
 
-          {/* Projects Section */}
+          {/* Projects */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
-            <h2 className="text-xl font-semibold mb-4">Projects</h2>
+            <h2 className="text-xl font-semibold mb-4">Featured Projects</h2>
             <div className="space-y-8">
               {content.projects.map((proj, idx) => (
                 <div key={idx} className="p-4 border border-border/50 rounded-xl space-y-4 relative">
-                  <button 
+                  <button
+                    type="button"
                     onClick={() => {
-                      const newProj = content.projects.filter((_, i) => i !== idx);
-                      setContent({ ...content, projects: newProj });
+                      const projects = content.projects.filter((_, i) => i !== idx);
+                      setContent({ ...content, projects });
                     }}
                     className="absolute top-4 right-4 px-2 py-1 bg-red-500/10 text-red-400 text-xs rounded hover:bg-red-500/20"
                   >
                     Delete Project
                   </button>
+                  {(
+                    [
+                      "title",
+                      "type",
+                      "role",
+                      "status",
+                      "timeline",
+                      "impact",
+                      "imageUrl",
+                    ] as const
+                  ).map((field) => (
+                    <div key={field}>
+                      <label className={labelClass}>{field}</label>
+                      <input
+                        value={proj[field]}
+                        onChange={(e) => {
+                          const projects = updateProjectAt(content.projects, idx, (p) => ({
+                            ...p,
+                            [field]: e.target.value,
+                          }));
+                          setContent({ ...content, projects });
+                        }}
+                        className={inputClass}
+                      />
+                    </div>
+                  ))}
                   <div>
-                    <label className="block text-xs font-medium mb-1">Title</label>
-                    <input
-                      value={proj.title}
-                      onChange={(e) => {
-                        const newProj = [...content.projects];
-                        newProj[idx].title = e.target.value;
-                        setContent({ ...content, projects: newProj });
-                      }}
-                      className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium mb-1">Description</label>
+                    <label className={labelClass}>Description</label>
                     <textarea
                       value={proj.desc}
                       onChange={(e) => {
-                        const newProj = [...content.projects];
-                        newProj[idx].desc = e.target.value;
-                        setContent({ ...content, projects: newProj });
+                        const projects = updateProjectAt(content.projects, idx, (p) => ({
+                          ...p,
+                          desc: e.target.value,
+                        }));
+                        setContent({ ...content, projects });
                       }}
-                      className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 min-h-[80px] focus:outline-none focus:border-primary"
+                      className={textareaClass}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium mb-1">Tech Stack (comma separated)</label>
+                    <label className={labelClass}>Tech stack (comma separated)</label>
                     <input
                       value={proj.tech.join(", ")}
                       onChange={(e) => {
-                        const newProj = [...content.projects];
-                        newProj[idx].tech = e.target.value.split(",").map(t => t.trim()).filter(Boolean);
-                        setContent({ ...content, projects: newProj });
+                        const tech = e.target.value
+                          .split(",")
+                          .map((t) => t.trim())
+                          .filter(Boolean);
+                        const projects = updateProjectAt(content.projects, idx, (p) => ({ ...p, tech }));
+                        setContent({ ...content, projects });
                       }}
-                      className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+                      className={inputClass}
                     />
                   </div>
-                  
-                  {/* Links */}
-                  <div className="grid grid-cols-2 gap-4 pt-2">
+                  {(["why", "problem", "solution", "next"] as const).map((storyKey) => (
+                    <div key={storyKey}>
+                      <label className={labelClass}>Story / {storyKey}</label>
+                      <textarea
+                        value={proj.story[storyKey]}
+                        onChange={(e) => {
+                          const projects = updateProjectAt(content.projects, idx, (p) => ({
+                            ...p,
+                            story: { ...p.story, [storyKey]: e.target.value },
+                          }));
+                          setContent({ ...content, projects });
+                        }}
+                        className={textareaClass}
+                      />
+                    </div>
+                  ))}
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-medium">Links</h3>
                     {proj.links.map((link, linkIdx) => (
-                      <div key={linkIdx} className="bg-white/5 p-3 rounded-lg border border-white/10">
-                        <label className="block text-xs font-medium mb-1">{linkIdx === 0 ? "Live Demo URL" : "GitHub URL"}</label>
+                      <div key={linkIdx} className="grid sm:grid-cols-3 gap-2 bg-white/5 p-3 rounded-lg border border-white/10">
+                        <input
+                          value={link.label}
+                          placeholder="Label"
+                          onChange={(e) => {
+                            const projects = updateProjectAt(content.projects, idx, (p) => {
+                              const links = p.links.map((l, i) =>
+                                i === linkIdx ? { ...l, label: e.target.value } : l
+                              );
+                              return { ...p, links };
+                            });
+                            setContent({ ...content, projects });
+                          }}
+                          className={inputClass}
+                        />
                         <input
                           value={link.href}
+                          placeholder="URL"
                           onChange={(e) => {
-                            const newProj = [...content.projects];
-                            newProj[idx].links[linkIdx].href = e.target.value;
-                            setContent({ ...content, projects: newProj });
+                            const projects = updateProjectAt(content.projects, idx, (p) => {
+                              const links = p.links.map((l, i) =>
+                                i === linkIdx ? { ...l, href: e.target.value } : l
+                              );
+                              return { ...p, links };
+                            });
+                            setContent({ ...content, projects });
                           }}
-                          className="w-full bg-background/80 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                          className={inputClass}
                         />
+                        <label className="flex items-center gap-2 text-sm">
+                          <input
+                            type="checkbox"
+                            checked={link.primary}
+                            onChange={(e) => {
+                              const projects = updateProjectAt(content.projects, idx, (p) => {
+                                const links = p.links.map((l, i) =>
+                                  i === linkIdx ? { ...l, primary: e.target.checked } : l
+                                );
+                                return { ...p, links };
+                              });
+                              setContent({ ...content, projects });
+                            }}
+                          />
+                          Primary
+                        </label>
                       </div>
                     ))}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newLink: ProjectLink = { label: "Link", href: "#", primary: false };
+                        const projects = updateProjectAt(content.projects, idx, (p) => ({
+                          ...p,
+                          links: [...p.links, newLink],
+                        }));
+                        setContent({ ...content, projects });
+                      }}
+                      className="text-xs px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg"
+                    >
+                      + Add link
+                    </button>
                   </div>
                 </div>
               ))}
               <button
-                onClick={() => setContent({ ...content, projects: [...content.projects, { title: "New Project", desc: "", tech: [], links: [{ label: "Live Demo", href: "#", primary: true }, { label: "GitHub", href: "#", primary: false }] }] })}
+                type="button"
+                onClick={() =>
+                  setContent({ ...content, projects: [...content.projects, createEmptyProject()] })
+                }
                 className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition"
               >
                 + Add Project
@@ -200,187 +421,322 @@ export function AdminPortal() {
             </div>
           </section>
 
-          {/* Building Section */}
+          {/* Current focus */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
-            <h2 className="text-xl font-semibold mb-4">"Building the Future" Section</h2>
+            <h2 className="text-xl font-semibold mb-4">Current Focus</h2>
             <div className="space-y-4">
+              {(["title", "description", "version", "updateCadence"] as const).map((key) => (
+                <div key={key}>
+                  <label className={labelClass}>{key}</label>
+                  {key === "description" ? (
+                    <textarea
+                      value={content.currentFocus.description}
+                      onChange={(e) =>
+                        setContent({
+                          ...content,
+                          currentFocus: { ...content.currentFocus, description: e.target.value },
+                        })
+                      }
+                      className={textareaClass}
+                    />
+                  ) : (
+                    <input
+                      value={content.currentFocus[key]}
+                      onChange={(e) =>
+                        setContent({
+                          ...content,
+                          currentFocus: { ...content.currentFocus, [key]: e.target.value },
+                        })
+                      }
+                      className={inputClass}
+                    />
+                  )}
+                </div>
+              ))}
               <div>
-                <label className="block text-sm font-medium mb-1">Text Description</label>
-                <textarea
-                  value={content.building.text}
-                  onChange={(e) => setContent({ ...content, building: { ...content.building, text: e.target.value } })}
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 min-h-[100px] focus:outline-none focus:border-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Tags (comma separated)</label>
+                <label className={labelClass}>Progress (%)</label>
                 <input
-                  value={content.building.tags.join(", ")}
-                  onChange={(e) => setContent({ ...content, building: { ...content.building, tags: e.target.value.split(",").map(t => t.trim()).filter(Boolean) } })}
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+                  type="number"
+                  min={0}
+                  max={100}
+                  value={content.currentFocus.progress}
+                  onChange={(e) =>
+                    setContent({
+                      ...content,
+                      currentFocus: {
+                        ...content.currentFocus,
+                        progress: Math.min(100, Math.max(0, Number(e.target.value) || 0)),
+                      },
+                    })
+                  }
+                  className={inputClass}
                 />
               </div>
             </div>
           </section>
 
-          {/* Skills Section */}
+          {/* Building the future */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
-            <h2 className="text-xl font-semibold mb-4">Skills (Arsenal)</h2>
-            <div className="space-y-3">
-              {content.skills.map((skill, idx) => (
-                <div key={idx} className="flex gap-4 items-center">
-                  <input
-                    value={skill.group}
-                    placeholder="Group Name (e.g. Frontend)"
-                    onChange={(e) => {
-                      const newSkills = [...content.skills];
-                      newSkills[idx].group = e.target.value;
-                      setContent({ ...content, skills: newSkills });
-                    }}
-                    className="flex-1 bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-                  />
-                  <input
-                    type="number"
-                    min="1"
-                    max="10"
-                    value={skill.level}
-                    onChange={(e) => {
-                      const newSkills = [...content.skills];
-                      newSkills[idx].level = parseInt(e.target.value) || 0;
-                      setContent({ ...content, skills: newSkills });
-                    }}
-                    className="w-24 bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-                  />
-                  <button 
+            <h2 className="text-xl font-semibold mb-4">Building the Future</h2>
+            <div className="space-y-4">
+              <div>
+                <label className={labelClass}>Text</label>
+                <textarea
+                  value={content.building.text}
+                  onChange={(e) =>
+                    setContent({ ...content, building: { ...content.building, text: e.target.value } })
+                  }
+                  className={`${textareaClass} min-h-[100px]`}
+                />
+              </div>
+              <div>
+                <label className={labelClass}>Tags (comma separated)</label>
+                <input
+                  value={content.building.tags.join(", ")}
+                  onChange={(e) =>
+                    setContent({
+                      ...content,
+                      building: {
+                        ...content.building,
+                        tags: e.target.value
+                          .split(",")
+                          .map((t) => t.trim())
+                          .filter(Boolean),
+                      },
+                    })
+                  }
+                  className={inputClass}
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Builder notes */}
+          <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
+            <h2 className="text-xl font-semibold mb-4">Builder Notes</h2>
+            <textarea
+              value={content.builderNotes.quote}
+              onChange={(e) =>
+                setContent({ ...content, builderNotes: { quote: e.target.value } })
+              }
+              className={textareaClass}
+            />
+          </section>
+
+          {/* Capability matrix */}
+          <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
+            <h2 className="text-xl font-semibold mb-4">Capability Matrix</h2>
+            <div className="space-y-6">
+              {content.capabilities.map((cap, idx) => (
+                <div key={idx} className="p-4 border border-border/50 rounded-xl space-y-3 relative">
+                  <button
+                    type="button"
                     onClick={() => {
-                      const newSkills = content.skills.filter((_, i) => i !== idx);
-                      setContent({ ...content, skills: newSkills });
+                      const capabilities = content.capabilities.filter((_, i) => i !== idx);
+                      setContent({ ...content, capabilities });
                     }}
-                    className="px-3 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition"
+                    className="absolute top-4 right-4 px-2 py-1 bg-red-500/10 text-red-400 text-xs rounded"
+                  >
+                    Delete
+                  </button>
+                  <input
+                    value={cap.category}
+                    onChange={(e) => {
+                      const capabilities = [...content.capabilities];
+                      capabilities[idx] = { ...capabilities[idx], category: e.target.value };
+                      setContent({ ...content, capabilities });
+                    }}
+                    className={inputClass}
+                    placeholder="Category"
+                  />
+                  <input
+                    value={cap.status}
+                    onChange={(e) => {
+                      const capabilities = [...content.capabilities];
+                      capabilities[idx] = { ...capabilities[idx], status: e.target.value };
+                      setContent({ ...content, capabilities });
+                    }}
+                    className={inputClass}
+                    placeholder="Status"
+                  />
+                  <select
+                    value={cap.statusColor}
+                    onChange={(e) => {
+                      const capabilities = [...content.capabilities];
+                      capabilities[idx] = {
+                        ...capabilities[idx],
+                        statusColor: e.target.value,
+                      };
+                      setContent({ ...content, capabilities });
+                    }}
+                    className={inputClass}
+                  >
+                    <option value="text-primary">Primary accent</option>
+                    <option value="text-accent">Accent</option>
+                  </select>
+                  <textarea
+                    value={cap.desc}
+                    onChange={(e) => {
+                      const capabilities = [...content.capabilities];
+                      capabilities[idx] = { ...capabilities[idx], desc: e.target.value };
+                      setContent({ ...content, capabilities });
+                    }}
+                    className={textareaClass}
+                  />
+                  <input
+                    value={cap.tech}
+                    onChange={(e) => {
+                      const capabilities = [...content.capabilities];
+                      capabilities[idx] = { ...capabilities[idx], tech: e.target.value };
+                      setContent({ ...content, capabilities });
+                    }}
+                    className={inputClass}
+                    placeholder="Tech line"
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() =>
+                  setContent({
+                    ...content,
+                    capabilities: [...content.capabilities, createEmptyCapability()],
+                  })
+                }
+                className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition"
+              >
+                + Add capability
+              </button>
+            </div>
+          </section>
+
+          {/* Mission logs */}
+          <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
+            <h2 className="text-xl font-semibold mb-4">Mission Logs</h2>
+            <div className="space-y-4">
+              {content.missionLogs.map((log, idx) => (
+                <div key={idx} className="flex gap-2 items-start">
+                  <input
+                    value={log.year}
+                    onChange={(e) => {
+                      const missionLogs = [...content.missionLogs];
+                      missionLogs[idx] = { ...missionLogs[idx], year: e.target.value };
+                      setContent({ ...content, missionLogs });
+                    }}
+                    className="w-28 bg-background/50 border border-border rounded-lg px-3 py-2"
+                  />
+                  <textarea
+                    value={log.log}
+                    onChange={(e) => {
+                      const missionLogs = [...content.missionLogs];
+                      missionLogs[idx] = { ...missionLogs[idx], log: e.target.value };
+                      setContent({ ...content, missionLogs });
+                    }}
+                    className={`${textareaClass} flex-1 min-h-[60px]`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const missionLogs = content.missionLogs.filter((_, i) => i !== idx);
+                      setContent({ ...content, missionLogs });
+                    }}
+                    className="px-3 py-2 bg-red-500/10 text-red-400 rounded-lg"
                   >
                     X
                   </button>
                 </div>
               ))}
               <button
-                onClick={() => setContent({ ...content, skills: [...content.skills, { group: "New Skill", level: 5 }] })}
-                className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition mt-2"
+                type="button"
+                onClick={() =>
+                  setContent({
+                    ...content,
+                    missionLogs: [...content.missionLogs, createEmptyMissionLog()],
+                  })
+                }
+                className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition"
               >
-                + Add Skill
+                + Add log entry
               </button>
             </div>
           </section>
 
-          {/* Experience Section */}
+          {/* Field notes */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
-            <h2 className="text-xl font-semibold mb-4">Experience Timeline</h2>
-            <div className="space-y-6">
-              {content.experience.map((exp, idx) => (
-                <div key={idx} className="p-4 border border-border/50 rounded-xl space-y-4 relative bg-background/30">
-                  <button 
-                    onClick={() => {
-                      const newExp = content.experience.filter((_, i) => i !== idx);
-                      setContent({ ...content, experience: newExp });
+            <h2 className="text-xl font-semibold mb-4">Field Notes</h2>
+            <div className="space-y-4">
+              {content.fieldNotes.map((note, idx) => (
+                <div key={idx} className="grid sm:grid-cols-3 gap-2 items-start">
+                  <input
+                    value={note.title}
+                    onChange={(e) => {
+                      const fieldNotes = [...content.fieldNotes];
+                      fieldNotes[idx] = { ...fieldNotes[idx], title: e.target.value };
+                      setContent({ ...content, fieldNotes });
                     }}
-                    className="absolute top-4 right-4 px-2 py-1 bg-red-500/10 text-red-400 text-xs rounded hover:bg-red-500/20"
+                    className={inputClass}
+                    placeholder="Title"
+                  />
+                  <input
+                    value={note.date}
+                    onChange={(e) => {
+                      const fieldNotes = [...content.fieldNotes];
+                      fieldNotes[idx] = { ...fieldNotes[idx], date: e.target.value };
+                      setContent({ ...content, fieldNotes });
+                    }}
+                    className={inputClass}
+                    placeholder="Date"
+                  />
+                  <input
+                    value={note.read}
+                    onChange={(e) => {
+                      const fieldNotes = [...content.fieldNotes];
+                      fieldNotes[idx] = { ...fieldNotes[idx], read: e.target.value };
+                      setContent({ ...content, fieldNotes });
+                    }}
+                    className={inputClass}
+                    placeholder="Read time"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const fieldNotes = content.fieldNotes.filter((_, i) => i !== idx);
+                      setContent({ ...content, fieldNotes });
+                    }}
+                    className="sm:col-span-3 text-xs text-red-400 text-left"
                   >
-                    Delete Entry
+                    Remove note
                   </button>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Title</label>
-                      <input
-                        value={exp.title}
-                        onChange={(e) => {
-                          const newExp = [...content.experience];
-                          newExp[idx].title = e.target.value;
-                          setContent({ ...content, experience: newExp });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Organization</label>
-                      <input
-                        value={exp.org}
-                        onChange={(e) => {
-                          const newExp = [...content.experience];
-                          newExp[idx].org = e.target.value;
-                          setContent({ ...content, experience: newExp });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Date</label>
-                      <input
-                        value={exp.date}
-                        onChange={(e) => {
-                          const newExp = [...content.experience];
-                          newExp[idx].date = e.target.value;
-                          setContent({ ...content, experience: newExp });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Icon Name</label>
-                      <select
-                        value={exp.iconName}
-                        onChange={(e) => {
-                          const newExp = [...content.experience];
-                          newExp[idx].iconName = e.target.value;
-                          setContent({ ...content, experience: newExp });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary text-foreground"
-                      >
-                        <option value="GraduationCap">GraduationCap</option>
-                        <option value="Trophy">Trophy</option>
-                        <option value="Sparkles">Sparkles</option>
-                        <option value="Users">Users</option>
-                        <option value="Heart">Heart</option>
-                        <option value="Code2">Code2</option>
-                        <option value="Rocket">Rocket</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-xs font-medium mb-1">Description</label>
-                    <textarea
-                      value={exp.desc}
-                      onChange={(e) => {
-                        const newExp = [...content.experience];
-                        newExp[idx].desc = e.target.value;
-                        setContent({ ...content, experience: newExp });
-                      }}
-                      className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 text-sm min-h-[60px] focus:outline-none focus:border-primary"
-                    />
-                  </div>
                 </div>
               ))}
               <button
-                onClick={() => setContent({ ...content, experience: [...content.experience, { title: "New Entry", org: "Org", date: "Present", iconName: "Rocket", desc: "" }] })}
+                type="button"
+                onClick={() =>
+                  setContent({
+                    ...content,
+                    fieldNotes: [...content.fieldNotes, createEmptyFieldNote()],
+                  })
+                }
                 className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition"
               >
-                + Add Experience Entry
+                + Add field note
               </button>
             </div>
           </section>
 
-          {/* Certificates Section */}
+          {/* Certificates */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
-            <h2 className="text-xl font-semibold mb-4">Certificates & Credentials</h2>
+            <h2 className="text-xl font-semibold mb-4">Certificates</h2>
             <div className="space-y-6">
-              {(content.certificates || []).map((cert: any, idx: number) => (
-                <div key={cert.id || idx} className="p-4 bg-background/40 border border-border/50 rounded-xl space-y-3">
+              {content.certificates.map((cert, idx) => (
+                <div key={cert.id} className="p-4 bg-background/40 border border-border/50 rounded-xl space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="font-mono text-xs font-semibold text-primary">Certificate #{idx + 1}</span>
                     <button
+                      type="button"
                       onClick={() => {
-                        const newCerts = content.certificates.filter((_: any, i: number) => i !== idx);
-                        setContent({ ...content, certificates: newCerts });
+                        const certificates = content.certificates.filter((_, i) => i !== idx);
+                        setContent({ ...content, certificates });
                       }}
                       className="text-xs text-red-400 hover:text-red-300"
                     >
@@ -388,126 +744,59 @@ export function AdminPortal() {
                     </button>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Title</label>
-                      <input
-                        value={cert.title}
-                        onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].title = e.target.value;
-                          setContent({ ...content, certificates: newCerts });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Issuer / Organization</label>
-                      <input
-                        value={cert.issuer}
-                        onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].issuer = e.target.value;
-                          setContent({ ...content, certificates: newCerts });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Issue Date</label>
-                      <input
-                        value={cert.issueDate}
-                        onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].issueDate = e.target.value;
-                          setContent({ ...content, certificates: newCerts });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Expiry Date</label>
-                      <input
-                        value={cert.expiryDate || ""}
-                        onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].expiryDate = e.target.value;
-                          setContent({ ...content, certificates: newCerts });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Credential ID</label>
-                      <input
-                        value={cert.credentialId || ""}
-                        onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].credentialId = e.target.value;
-                          setContent({ ...content, certificates: newCerts });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium mb-1">Credential Verification URL</label>
-                      <input
-                        value={cert.credentialUrl || ""}
-                        onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].credentialUrl = e.target.value;
-                          setContent({ ...content, certificates: newCerts });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
+                    {(
+                      [
+                        "title",
+                        "issuer",
+                        "issueDate",
+                        "expiryDate",
+                        "credentialId",
+                        "credentialUrl",
+                        "imageUrl",
+                      ] as const
+                    ).map((field) => (
+                      <div key={field} className={field === "imageUrl" ? "sm:col-span-2" : undefined}>
+                        <label className={labelClass}>{field}</label>
+                        <input
+                          value={cert[field]}
+                          onChange={(e) => {
+                            const certificates = [...content.certificates];
+                            certificates[idx] = { ...certificates[idx], [field]: e.target.value };
+                            setContent({ ...content, certificates });
+                          }}
+                          className={inputClass}
+                        />
+                      </div>
+                    ))}
                     <div className="sm:col-span-2">
-                      <label className="block text-xs font-medium mb-1">Image / Badge URL</label>
+                      <label className={labelClass}>Skills (comma separated)</label>
                       <input
-                        value={cert.imageUrl || ""}
+                        value={cert.skills.join(", ")}
                         onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].imageUrl = e.target.value;
-                          setContent({ ...content, certificates: newCerts });
+                          const certificates = [...content.certificates];
+                          certificates[idx] = {
+                            ...certificates[idx],
+                            skills: e.target.value
+                              .split(",")
+                              .map((s) => s.trim())
+                              .filter(Boolean),
+                          };
+                          setContent({ ...content, certificates });
                         }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div className="sm:col-span-2">
-                      <label className="block text-xs font-medium mb-1">Skills (comma separated)</label>
-                      <input
-                        value={cert.skills ? cert.skills.join(", ") : ""}
-                        onChange={(e) => {
-                          const newCerts = [...content.certificates];
-                          newCerts[idx].skills = e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean);
-                          setContent({ ...content, certificates: newCerts });
-                        }}
-                        className="w-full bg-background/50 border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-primary"
+                        className={inputClass}
                       />
                     </div>
                   </div>
                 </div>
               ))}
               <button
-                onClick={() => {
-                  const currentCerts = content.certificates || [];
+                type="button"
+                onClick={() =>
                   setContent({
                     ...content,
-                    certificates: [
-                      ...currentCerts,
-                      {
-                        id: String(Date.now()),
-                        title: "New Certificate",
-                        issuer: "Issuer / Academy",
-                        issueDate: "2026",
-                        expiryDate: "No Expiration",
-                        credentialId: "",
-                        credentialUrl: "",
-                        imageUrl: "",
-                        skills: ["Skill 1", "Skill 2"]
-                      }
-                    ]
-                  });
-                }}
+                    certificates: [...content.certificates, createEmptyCertificate()],
+                  })
+                }
                 className="text-sm px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition"
               >
                 + Add Certificate
@@ -515,57 +804,40 @@ export function AdminPortal() {
             </div>
           </section>
 
-          {/* Contact Section */}
+          {/* Contact */}
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
-            <h2 className="text-xl font-semibold mb-4">Contact Section</h2>
+            <h2 className="text-xl font-semibold mb-4">Contact</h2>
             <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Email</label>
-                <input
-                  type="email"
-                  value={content.contact.email}
-                  onChange={(e) => setContent({ ...content, contact: { ...content.contact, email: e.target.value } })}
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">LinkedIn URL</label>
-                <input
-                  type="url"
-                  value={content.contact.linkedin}
-                  onChange={(e) => setContent({ ...content, contact: { ...content.contact, linkedin: e.target.value } })}
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">GitHub URL</label>
-                <input
-                  type="url"
-                  value={content.contact.github}
-                  onChange={(e) => setContent({ ...content, contact: { ...content.contact, github: e.target.value } })}
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Resume Path</label>
-                <input
-                  type="text"
-                  value={content.contact.resume}
-                  onChange={(e) => setContent({ ...content, contact: { ...content.contact, resume: e.target.value } })}
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-                />
-              </div>
+              {(["email", "linkedin", "github", "resume"] as const).map((key) => (
+                <div key={key}>
+                  <label className="block text-sm font-medium mb-1">{key}</label>
+                  <input
+                    value={content.contact[key]}
+                    onChange={(e) =>
+                      setContent({
+                        ...content,
+                        contact: { ...content.contact, [key]: e.target.value },
+                      })
+                    }
+                    className={inputClass}
+                  />
+                </div>
+              ))}
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium mb-1">Subtitle</label>
                 <textarea
                   value={content.contact.subtitle}
-                  onChange={(e) => setContent({ ...content, contact: { ...content.contact, subtitle: e.target.value } })}
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-2 focus:outline-none focus:border-primary min-h-[80px]"
+                  onChange={(e) =>
+                    setContent({
+                      ...content,
+                      contact: { ...content.contact, subtitle: e.target.value },
+                    })
+                  }
+                  className={`${inputClass} min-h-[80px]`}
                 />
               </div>
             </div>
           </section>
-
         </div>
       </div>
     </div>
