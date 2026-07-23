@@ -425,7 +425,7 @@ export function AdminPortal() {
           <section className="bg-card/40 backdrop-blur-md p-6 rounded-2xl border border-border/50">
             <h2 className="text-xl font-semibold mb-4">Current Focus</h2>
             <div className="space-y-4">
-              {(["title", "description", "version", "updateCadence"] as const).map((key) => (
+              {(["title", "description", "version", "status"] as const).map((key) => (
                 <div key={key}>
                   <label className={labelClass}>{key}</label>
                   {key === "description" ? (
@@ -453,25 +453,6 @@ export function AdminPortal() {
                   )}
                 </div>
               ))}
-              <div>
-                <label className={labelClass}>Progress (%)</label>
-                <input
-                  type="number"
-                  min={0}
-                  max={100}
-                  value={content.currentFocus.progress}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      currentFocus: {
-                        ...content.currentFocus,
-                        progress: Math.min(100, Math.max(0, Number(e.target.value) || 0)),
-                      },
-                    })
-                  }
-                  className={inputClass}
-                />
-              </div>
             </div>
           </section>
 
