@@ -5,37 +5,40 @@
     "headlineAccent": "tomorrow.",
     "summary": "Engineer by skill. Builder by choice. I create solutions that empower people and shape communities.",
     "profile": {
-      "id": "NS-042",
+      "systemId": "NS-042",
       "name": "Ahamed Nusaif",
       "role": "Future Builder",
       "location": "Sri Lanka",
-      "focus": "Building ForFuture",
       "mission": "Empower Youth. Drive Change.",
-      "level": "Undergraduate 2.0"
+      "currentObjective": "Building ForFuture",
+      "status": "Online",
+      "currentBuild": "ForFuture Beta",
+      "nextTarget": "Launch v1.0",
+      "currentVersion": "v2.0"
     }
   },
   "about": {
     "timeline": [
       {
-        "iconName": "MapPin",
-        "title": "Born in Puttalam.",
-        "desc": "Curiosity is my foundation."
-      },
-      {
         "iconName": "BrainCircuit",
-        "title": "Raised by curiosity.",
-        "desc": "Innovation is my mindset."
+        "title": "Curiosity became code.",
+        "desc": "I discovered that technology could solve the problems I saw around me."
       },
       {
         "iconName": "Code2",
-        "title": "Chose technology over tradition.",
-        "desc": "Impact is my mission."
+        "title": "Chose software engineering.",
+        "desc": "Not just to learn, but to build solutions that matter."
       },
       {
         "iconName": "Rocket",
-        "title": "Building products for the next generation of Sri Lanka.",
-        "desc": "Building technology that shapes the future.",
+        "title": "Started ForFuture.",
+        "desc": "A youth-powered platform to turn civic engagement into measurable change.",
         "highlight": true
+      },
+      {
+        "iconName": "Target",
+        "title": "Building today for tomorrow.",
+        "desc": "Every project is another step toward meaningful innovation."
       }
     ],
     "legacyQuote": "Not just building products. Building a legacy."
@@ -45,7 +48,7 @@
     "linkedin": "https://www.linkedin.com/in/ahamed-nusaif",
     "github": "https://github.com/KindNusaif",
     "resume": "/resume.pdf",
-    "subtitle": "I'm open to internships, collaborations, and weird side projects with people who care."
+    "subtitle": "Have an idea worth building? Let's create something meaningful."
   },
   "projects": [
     {
@@ -100,11 +103,23 @@
     "title": "ForFuture",
     "description": "A youth-powered platform for civic engagement and social impact — where ideas turn into measurable change.",
     "version": "v0.8 • pre-release",
-    "progress": 80,
-    "updateCadence": "Monthly"
+    "status": "In Development"
   },
   "builderNotes": {
     "quote": "I don't just follow the path— I build the next one."
+  },
+  "nowBuilding": [
+    "ForFuture Beta",
+    "AI Experiments",
+    "Portfolio v3",
+    "Learning System Design",
+    "Preparing for Internships"
+  ],
+  "systemStatus": {
+    "status": "ONLINE",
+    "location": "Sri Lanka",
+    "objective": "Building Meaningful Products",
+    "availableFor": ["Internships", "Collaborations", "Startup Projects"]
   },
   "capabilities": [
     {
@@ -142,11 +157,7 @@
     { "year": "2026", "log": "Launched ForFuture. Focusing on youth empowerment and scalable tech solutions." },
     { "year": "Future", "log": "Building products for millions. Creating technology that shapes the future and empowers communities globally." }
   ],
-  "fieldNotes": [
-    { "title": "Architecting ForFuture: A Technical Deep Dive", "read": "8 min read", "date": "May 2026" },
-    { "title": "Why I Chose Vite Over Webpack for Modern React Apps", "read": "5 min read", "date": "Mar 2026" },
-    { "title": "Building a Maze-Solving Robot from Scratch in C++", "read": "10 min read", "date": "Jan 2026" }
-  ],
+  "fieldNotes": [],
   "certificates": [
     {
       "id": "1",

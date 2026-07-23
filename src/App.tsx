@@ -10,7 +10,6 @@ import {
   MarqueeStrip,
   ScrollProgress,
   StackSection,
-  CertificatesSection,
   BlogSection,
 } from "@/components/portfolio/sections";
 import { Spotlight } from "@/components/portfolio/Spotlight";
@@ -44,7 +43,6 @@ function Portfolio() {
         <WorkSection />
         <MissionLogsSection />
         <StackSection />
-        <CertificatesSection />
         <BlogSection />
         <ContactSection />
       </main>

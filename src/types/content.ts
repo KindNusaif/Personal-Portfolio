@@ -45,13 +45,16 @@ export interface FieldNote {
 }
 
 export interface IdentityProfile {
-  id: string;
+  systemId: string;
   name: string;
   role: string;
   location: string;
-  focus: string;
   mission: string;
-  level: string;
+  currentObjective: string;
+  status: string;
+  currentBuild: string;
+  nextTarget: string;
+  currentVersion: string;
 }
 
 export interface Identity {
@@ -66,12 +69,18 @@ export interface CurrentFocus {
   title: string;
   description: string;
   version: string;
-  progress: number;
-  updateCadence: string;
+  status: string;
 }
 
 export interface BuilderNotes {
   quote: string;
+}
+
+export interface SystemStatus {
+  status: string;
+  location: string;
+  objective: string;
+  availableFor: string[];
 }
 
 export interface OriginTimelineItem {
@@ -118,6 +127,8 @@ export interface PortfolioContent {
   building: Building;
   currentFocus: CurrentFocus;
   builderNotes: BuilderNotes;
+  nowBuilding: string[];
+  systemStatus: SystemStatus;
   capabilities: Capability[];
   missionLogs: MissionLog[];
   fieldNotes: FieldNote[];
